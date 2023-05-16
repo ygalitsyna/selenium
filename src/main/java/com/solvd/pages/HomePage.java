@@ -7,23 +7,20 @@ import org.openqa.selenium.support.PageFactory;
 
 
 public class HomePage {
+    private WebDriver driver;
 
-    WebDriver driver;
-    @FindBy(id = "twotabsearchtextbox")
-    WebElement searchInput;
-    @FindBy(id = "nav-search-submit-button")
-    WebElement searchButton;
+    @FindBy(css = "#twotabsearchtextbox")
+    private WebElement searchInput;
 
-    //@FindBy(xpath = "//span[contains(text(),\"Don't Change\")]")
-    //WebElement dontChangeButton;
+    @FindBy(css = "#nav-search-submit-button")
+    private WebElement searchButton;
+
     public HomePage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     public ResultPage search(String product){
-        //dontChangeButton.click();
-        //searchInput.click();
         searchInput.sendKeys(product);
         searchButton.click();
         return new ResultPage(driver);
