@@ -1,0 +1,31 @@
+20:46:26.448 [main] INFO  com.solvd.SearchTest - Homepage was opened
+20:47:16.625 [main] INFO  com.solvd.SearchTest - Homepage was opened
+21:28:25.493 [main] INFO  com.solvd.SearchTest - Homepage was opened
+21:28:25.565 [main] INFO  com.solvd.pages.AbstractPage - Text '%s' was sent to the element %s
+21:28:27.165 [main] INFO  com.solvd.pages.AbstractPage - Element %s was clicked
+21:47:22.523 [main] INFO  com.solvd.SearchTest - Homepage was opened
+21:47:41.588 [main] INFO  com.solvd.SearchTest - Homepage was opened
+21:47:41.724 [main] INFO  com.solvd.pages.AbstractPage - Text 'macbook' was sent to the element [[ChromeDriver: chrome on MAC (fdfbb2528cf91a533ae0d672213d5e44)] -> css selector: #twotabsearchtextbox]
+21:47:43.635 [main] INFO  com.solvd.pages.AbstractPage - Element [[ChromeDriver: chrome on MAC (fdfbb2528cf91a533ae0d672213d5e44)] -> css selector: #nav-search-submit-button] was clicked
+21:49:40.129 [main] INFO  com.solvd.SearchTest - Homepage was opened
+21:49:49.548 [main] INFO  com.solvd.SearchTest - Homepage was opened
+21:49:49.650 [main] INFO  com.solvd.pages.AbstractPage - Text 'macbook' was sent to the element [[ChromeDriver: chrome on MAC (b5f4b76a4b0cc37126244780a0b29166)] -> css selector: #twotabsearchtextbox]
+21:49:51.888 [main] INFO  com.solvd.pages.AbstractPage - Element [[ChromeDriver: chrome on MAC (b5f4b76a4b0cc37126244780a0b29166)] -> css selector: #nav-search-submit-button] was clicked
+21:50:01.911 [main] INFO  com.solvd.SearchTest - Homepage was opened
+21:50:01.995 [main] INFO  com.solvd.pages.AbstractPage - Text 'macbook' was sent to the element [[ChromeDriver: chrome on MAC (8f85a91a857a3a74081c210cf37b5721)] -> css selector: #twotabsearchtextbox]
+21:50:03.796 [main] INFO  com.solvd.pages.AbstractPage - Element [[ChromeDriver: chrome on MAC (8f85a91a857a3a74081c210cf37b5721)] -> css selector: #nav-search-submit-button] was clicked
+21:50:39.229 [main] INFO  com.solvd.SearchTest - Homepage was opened
+21:50:39.317 [main] INFO  com.solvd.pages.AbstractPage - Text 'macbook' was sent to the element [[ChromeDriver: chrome on MAC (8f79126b5507c8e92b7d738e99fb24c4)] -> css selector: #twotabsearchtextbox]
+21:50:40.739 [main] INFO  com.solvd.pages.AbstractPage - Element [[ChromeDriver: chrome on MAC (8f79126b5507c8e92b7d738e99fb24c4)] -> css selector: #nav-search-submit-button] was clicked
+22:00:38.029 [main] INFO  com.solvd.SearchTest - Homepage was opened
+22:00:38.161 [main] INFO  com.solvd.pages.AbstractPage - Text 'macbook' was sent to the element twotabsearchtextbox
+22:00:39.634 [main] INFO  com.solvd.pages.AbstractPage - Element [[ChromeDriver: chrome on MAC (f38dd2f5f7a8556cc235631bff21396c)] -> css selector: #nav-search-submit-button] was clicked
+22:01:47.119 [main] INFO  com.solvd.SearchTest - Homepage was opened
+22:01:47.209 [main] INFO  com.solvd.pages.AbstractPage - Text 'macbook' was sent to the element with id twotabsearchtextbox
+22:01:48.865 [main] INFO  com.solvd.pages.AbstractPage - Element nav-search-submit-button was clicked
+22:03:48.629 [main] INFO  com.solvd.SearchTest - Homepage was opened
+22:03:48.729 [main] INFO  com.solvd.pages.AbstractPage - Text 'macbook' was sent to the element with id twotabsearchtextbox
+22:03:50.976 [main] INFO  com.solvd.pages.AbstractPage - Element with id nav-search-submit-button was clicked
+22:05:14.067 [main] INFO  com.solvd.SearchTest - Homepage was opened
+22:05:14.147 [main] INFO  com.solvd.pages.AbstractPage - Text 'macbook' was sent to the element with id twotabsearchtextbox
+22:05:15.857 [main] INFO  com.solvd.pages.AbstractPage - Element with id nav-search-submit-button was clicked

@@ -3,12 +3,10 @@ package com.solvd.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class ResultPage {
-    private WebDriver driver;
+public class ResultPage extends AbstractPage {
 
     @FindBy(xpath = "//span[@class ='a-size-medium a-color-base a-text-normal']")
     private List<WebElement> resultList;
@@ -17,8 +15,7 @@ public class ResultPage {
     private WebElement resultsNumberOnPage;
 
     public ResultPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public boolean isResultListEmpty(){
