@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPage {
     private static final Logger LOGGER = LogManager.getLogger(AbstractPage.class);
@@ -15,17 +17,37 @@ public abstract class AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
-
     public void click(WebElement element){
-        element.click();
-        LOGGER.info(String.format("Element with id %s was clicked", element.getAttribute("id")));
+        try{
+            waitUntilElementToBeClickable(element);
+            element.click();
+            LOGGER.info("Element with id {} was clicked", element.getAttribute("id"));
+        }catch(Exception e){
+            LOGGER.warn("Failed to click element with id {} was ", element.getAttribute("id"));
+        }
     }
 
     public void sendKeys(WebElement element, String text){
-        element.sendKeys(text);
-        LOGGER.info(String.format("Text '%s' was sent to the element with id %s", text, element.getAttribute("id")));
+        try{
+            waitUntilElementToBeVisible(element);
+            element.sendKeys(text);
+            LOGGER.info("Text {} was sent to the element with id {}", text, element.getAttribute("id"));
+        }catch(Exception e){
+            LOGGER.warn("Failed to click element with id {} was ", element.getAttribute("id"));
+        }
+    }
+
+    public void waitUntilElementToBeClickable(WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void waitUntilElementToBeVisible(WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 }
