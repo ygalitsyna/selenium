@@ -2,6 +2,7 @@ package com.solvd;
 
 import com.solvd.pages.HomePage;
 import com.solvd.pages.ResultPage;
+import com.solvd.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -12,7 +13,7 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class SearchTest {
-    private final String driverPath = "/Users/yanagalitsyna/Desktop/chromedrivers/chromedriver";
+    private final String driverPath = ConfigReader.getProperty("browser_path");
     private WebDriver driver;
     private HomePage homePage;
     private ResultPage resultPage;
@@ -23,7 +24,7 @@ public class SearchTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://www.amazon.com/");
+        driver.get(ConfigReader.getProperty("url"));
 
     }
 
