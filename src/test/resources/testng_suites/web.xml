@@ -2,23 +2,29 @@
 <suite name="Suite" thread-count="6" parallel="tests">
     <test name="Test on chrome">
         <parameter name="browser" value="chrome"/>
+        <parameter name="unsuccessful_signin" value="uncorrectemail@new.com"/>
         <classes>
             <class name="com.solvd.HeaderTest"/>
             <class name="com.solvd.SearchTest"/>
+            <class name="com.solvd.SigninTest"/>
         </classes>
     </test>
     <test name="Test on safari">
         <parameter name="browser" value="safari"/>
+        <parameter name="unsuccessful_signin" value="uncorrectemail@new.com"/>
         <classes>
             <class name="com.solvd.HeaderTest"/>
             <class name="com.solvd.SearchTest"/>
+            <class name="com.solvd.SigninTest"/>
         </classes>
     </test>
     <test name="Test on firefox">
         <parameter name="browser" value="firefox"/>
+        <parameter name="unsuccessful_signin" value="uncorrectemail@new.com"/>
         <classes>
             <class name="com.solvd.HeaderTest"/>
             <class name="com.solvd.SearchTest"/>
+            <class name="com.solvd.SigninTest"/>
         </classes>
     </test>
 </suite>
