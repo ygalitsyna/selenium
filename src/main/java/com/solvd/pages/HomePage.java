@@ -7,25 +7,19 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends AbstractPage {
 
-    @FindBy(css = "#nav-logo-sprites")
+    @FindBy(id = "nav-logo-sprites")
     private WebElement amazonLogo;
 
-    @FindBy(css = "#twotabsearchtextbox")
+    @FindBy(id = "twotabsearchtextbox")
     private WebElement searchInput;
 
-    @FindBy(css = "#nav-search-submit-button")
+    @FindBy(id = "nav-search-submit-button")
     private WebElement searchButton;
 
-    @FindBy(css = "#glow-ingress-line2")
+    @FindBy(id = "glow-ingress-line2")
     private WebElement autoLocation;
 
-    @FindBy(css = "#nav-link-accountList-nav-line-1")
-    //@FindBy(xpath = "//a[@data-nav-ref='nav_ya_signin']")
-    //@FindBy(xpath = "//a[@id='nav-link-accountList']")
-    //@FindBy(xpath = "//a[@class='nav-a nav-a-2   nav-progressive-attribute'][1]")
-    //@FindBy(xpath = "//div[@id='nav-tools']")
-    //@FindBy(xpath = "//div[@class='nav-right']/div[@id='nav-tools']/a[@id='nav-link-accountList']")
-    //@FindBy(xpath = "//span[contains(text(),'Hello, sign in')]")
+    @FindBy(id = "nav-link-accountList-nav-line-1")
     private WebElement signinButton;
 
     public HomePage(WebDriver driver){
@@ -52,7 +46,7 @@ public class HomePage extends AbstractPage {
     }
 
     public SigninPage goToSigninPage(){
-        click(signinButton);
+        signinButton.click();
         return new SigninPage(getDriver());
     }
 }
