@@ -26,7 +26,7 @@ public abstract class AbstractPage {
             element.click();
             LOGGER.info("Element with id {} was clicked", element.getAttribute("id"));
         }catch(Exception e){
-            LOGGER.warn("Failed to click element with id {} was ", element.getAttribute("id"));
+            LOGGER.warn("Failed to click element with id {}, exception {}", element.getAttribute("id"), e.getMessage());
         }
     }
 
@@ -47,9 +47,23 @@ public abstract class AbstractPage {
             LOGGER.info("Element with id {} is visible", element.getAttribute("id"));
         } catch (TimeoutException e) {
             isVisible = false;
-            LOGGER.info("Element with id {} isn't visible", element.getAttribute("id"));
+            LOGGER.warn("Element with id {} isn't visible", element.getAttribute("id"));
         }
         return isVisible;
+    }
+
+    public String getWebElementText(WebElement element){
+        try{
+            waitUntilElementToBeVisible(element);
+            LOGGER.info("Element with id {} contains text {}", element.getAttribute("id"), element.getText().trim());
+        } catch(TimeoutException e){
+            LOGGER.warn("Failed to find element with id {}", element.getAttribute("id"));
+        }
+        return element.getText().trim();
+    }
+
+    public String getWebElementPlaceholder(WebElement element){
+        return element.getAttribute("placeholder").trim();
     }
 
     public void waitUntilElementToBeClickable(WebElement element){
