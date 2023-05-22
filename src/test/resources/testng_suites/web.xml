@@ -3,18 +3,21 @@
     <test name="Test on chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
+            <class name="com.solvd.HeaderTest"/>
             <class name="com.solvd.SearchTest"/>
         </classes>
     </test>
     <test name="Test on safari">
         <parameter name="browser" value="safari"/>
         <classes>
+            <class name="com.solvd.HeaderTest"/>
             <class name="com.solvd.SearchTest"/>
         </classes>
     </test>
     <test name="Test on firefox">
         <parameter name="browser" value="firefox"/>
         <classes>
+            <class name="com.solvd.HeaderTest"/>
             <class name="com.solvd.SearchTest"/>
         </classes>
     </test>

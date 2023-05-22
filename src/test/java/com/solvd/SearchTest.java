@@ -11,20 +11,6 @@ public class SearchTest extends AbstractTest{
     public String searchQuery = "macbook";
 
     @Test
-    public void testLogo(){
-        WebDriver driver = driverThreadLocal.get();
-        HomePage homePage = new HomePage(driver);
-        Assert.assertTrue(homePage.isLogoPresent(), "Amazon logo not present on HomePage");
-    }
-
-    @Test
-    public void testLocation(){
-        WebDriver driver = driverThreadLocal.get();
-        HomePage homePage = new HomePage(driver);
-        Assert.assertTrue(homePage.getAutoLocationText().equalsIgnoreCase("Poland"));
-    }
-
-    @Test
     public void testSearchBarText(){
         WebDriver driver = driverThreadLocal.get();
         HomePage homePage = new HomePage(driver);
