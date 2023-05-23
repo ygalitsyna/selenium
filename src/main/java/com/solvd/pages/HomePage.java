@@ -16,18 +16,23 @@ public class HomePage extends AbstractPage {
     @FindBy(css = "#nav-search-submit-button")
     private WebElement searchButton;
 
-    public HomePage(WebDriver driver){
+    public HomePage(WebDriver driver) {
         super(driver);
-        driver.get(ConfigReader.getProperty("url"));
+        //driver.get(ConfigReader.getProperty("url"));
     }
 
-    public ResultPage search(String product){
+    public HomePage goToPage() {
+        getDriver().get(ConfigReader.getProperty("url"));
+        return this;
+    }
+
+    public ResultPage search(String product) {
         sendKeys(searchInput, product);
         click(searchButton);
         return new ResultPage(getDriver());
     }
 
-    public boolean isLogoPresent(){
+    public boolean isLogoPresent() {
         return isElementVisible(amazonLogo);
     }
 }

@@ -15,50 +15,50 @@ public abstract class AbstractPage {
     private static final Logger LOGGER = LogManager.getLogger(AbstractPage.class);
     private WebDriver driver;
 
-    public AbstractPage(WebDriver driver){
+    public AbstractPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void click(WebElement element){
-        try{
+    public void click(WebElement element) {
+        try {
             waitUntilElementToBeClickable(element);
             element.click();
-            LOGGER.info("Element with id {} was clicked", element.getAttribute("id"));
-        }catch(Exception e){
-            LOGGER.warn("Failed to click element with id {} was ", element.getAttribute("id"));
+            LOGGER.info("Element {} was clicked", element);
+        } catch (Exception e) {
+            LOGGER.warn("Failed to click element {}", element);
         }
     }
 
-    public void sendKeys(WebElement element, String text){
-        try{
+    public void sendKeys(WebElement element, String text) {
+        try {
             waitUntilElementToBeVisible(element);
             element.sendKeys(text);
-            LOGGER.info("Text {} was sent to the element with id {}", text, element.getAttribute("id"));
-        }catch(Exception e){
-            LOGGER.warn("Failed to sent text to the element with id {}", element.getAttribute("id"));
+            LOGGER.info("Text {} was sent to the element {}", text, element);
+        } catch (Exception e) {
+            LOGGER.warn("Failed to sent text to the element {}", element);
         }
     }
 
-    public boolean isElementVisible(WebElement element){
+    public boolean isElementVisible(WebElement element) {
         boolean isVisible = true;
         try {
             waitUntilElementToBeVisible(element);
-            LOGGER.info("Element with id {} is visible", element.getAttribute("id"));
+            LOGGER.info("Element {} is visible", element);
         } catch (TimeoutException e) {
             isVisible = false;
-            LOGGER.info("Element with id {} isn't visible", element.getAttribute("id"));
+            LOGGER.info("Element {} isn't visible", element);
         }
         return isVisible;
     }
 
-    public void waitUntilElementToBeClickable(WebElement element){
+    public void waitUntilElementToBeClickable(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public void waitUntilElementToBeVisible(WebElement element){
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+    public void waitUntilElementToBeVisible(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 

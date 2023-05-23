@@ -16,7 +16,7 @@ public class AbstractTest {
     protected ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     @Parameters("browser")
-    @BeforeClass
+    @BeforeMethod
     public void setUp(String browser) throws MalformedURLException {
         WebDriver driver;
         if (browser.equalsIgnoreCase("chrome")) {
@@ -26,10 +26,10 @@ public class AbstractTest {
         } else if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             driver = new RemoteWebDriver(new URL(ConfigReader.getProperty("selenium_url")), options);
-        } else if(browser.equalsIgnoreCase("safari")){
+        } else if (browser.equalsIgnoreCase("safari")) {
             SafariOptions options = new SafariOptions();
             driver = new RemoteWebDriver(new URL(ConfigReader.getProperty("selenium_url")), options);
-        }else {
+        } else {
             throw new IllegalArgumentException("Invalid browser parameter");
         }
         driver.manage().window().maximize();
@@ -37,7 +37,7 @@ public class AbstractTest {
         driverThreadLocal.set(driver);
     }
 
-    @AfterClass
+    @AfterMethod
     public void tearDown() {
         WebDriver driver = driverThreadLocal.get();
         if (driver != null) {
