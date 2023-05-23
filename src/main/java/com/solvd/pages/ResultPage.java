@@ -1,5 +1,7 @@
 package com.solvd.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,8 +12,9 @@ import java.time.Duration;
 import java.util.List;
 
 public class ResultPage extends AbstractPage {
+    private static final Logger LOGGER = LogManager.getLogger(ResultPage.class);
 
-    @FindBy(xpath = "//span[@class ='a-size-medium a-color-base a-text-normal']")
+    @FindBy(xpath = ".//div[@class='a-section']//h2")
     private List<WebElement> resultList;
 
     @FindBy(xpath = "//span[contains(text(),'results for')]")
@@ -41,11 +44,13 @@ public class ResultPage extends AbstractPage {
         String expectedNumberInString = resultsNumberOnPage.getText();
         String[] array = (expectedNumberInString.split("-"))[1].split(" ");
         int expectedNumber = Integer.parseInt(array[0]);
+        LOGGER.info("Expected number of results in resultlist is {}", expectedNumber);
         return expectedNumber;
     }
 
     public int getActualNumberOfResultsOnPage(List<WebElement> resultList) {
         int actualNumber = resultList.size();
+        LOGGER.info("Actual number of results in resultlist is {}", actualNumber);
         return actualNumber;
     }
 

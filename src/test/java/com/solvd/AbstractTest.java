@@ -16,7 +16,7 @@ public class AbstractTest {
     protected ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     @Parameters("browser")
-    @BeforeClass
+    @BeforeMethod
     public void setUp(String browser) throws MalformedURLException {
         WebDriver driver;
         if (browser.equalsIgnoreCase("chrome")) {
@@ -37,7 +37,7 @@ public class AbstractTest {
         driverThreadLocal.set(driver);
     }
 
-    @AfterClass
+    @AfterMethod
     public void tearDown() {
         WebDriver driver = driverThreadLocal.get();
         if (driver != null) {

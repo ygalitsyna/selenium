@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class SigninPage extends AbstractPage{
 
-    @FindBy(xpath = "//input[@name='email']")
+    @FindBy(xpath = "//div[@class='a-section']//input[@type='email']")
     private WebElement userEmailInput;
 
     @FindBy(css = "#continue")

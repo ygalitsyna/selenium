@@ -24,9 +24,9 @@ public abstract class AbstractPage {
         try{
             waitUntilElementToBeClickable(element);
             element.click();
-            LOGGER.info("Element with id {} was clicked", element.getAttribute("id"));
+            LOGGER.info("Element {} was clicked", element);
         }catch(Exception e){
-            LOGGER.warn("Failed to click element with id {}, exception {}", element.getAttribute("id"), e.getMessage());
+            LOGGER.warn("Failed to click element {}. Exception {}", element, e.getMessage());
         }
     }
 
@@ -34,9 +34,9 @@ public abstract class AbstractPage {
         try{
             waitUntilElementToBeVisible(element);
             element.sendKeys(text);
-            LOGGER.info("Text {} was sent to the element with id {}", text, element.getAttribute("id"));
+            LOGGER.info("Text {} was sent to the element {}", text, element);
         }catch(Exception e){
-            LOGGER.warn("Failed to sent text to the element with id {}", element.getAttribute("id"));
+            LOGGER.warn("Failed to sent text to the element {}. Exception {}", element, e.getMessage());
         }
     }
 
@@ -44,10 +44,10 @@ public abstract class AbstractPage {
         boolean isVisible = true;
         try {
             waitUntilElementToBeVisible(element);
-            LOGGER.info("Element with id {} is visible", element.getAttribute("id"));
+            LOGGER.info("Element {} is visible", element);
         } catch (TimeoutException e) {
             isVisible = false;
-            LOGGER.warn("Element with id {} isn't visible", element.getAttribute("id"));
+            LOGGER.warn("Element {} isn't visible. Exception {}", element, e.getMessage());
         }
         return isVisible;
     }
@@ -55,9 +55,9 @@ public abstract class AbstractPage {
     public String getWebElementText(WebElement element){
         try{
             waitUntilElementToBeVisible(element);
-            LOGGER.info("Element with id {} contains text {}", element.getAttribute("id"), element.getText().trim());
+            LOGGER.info("Element {} contains text {}", element, element.getText().trim());
         } catch(TimeoutException e){
-            LOGGER.warn("Failed to find element with id {}", element.getAttribute("id"));
+            LOGGER.warn("Failed to find element {}. Exception {}", element, e.getMessage());
         }
         return element.getText().trim();
     }
@@ -67,12 +67,12 @@ public abstract class AbstractPage {
     }
 
     public void waitUntilElementToBeClickable(WebElement element){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void waitUntilElementToBeVisible(WebElement element){
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 

@@ -7,19 +7,19 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends AbstractPage {
 
-    @FindBy(id = "nav-logo-sprites")
+    @FindBy(xpath = "//div[@id='nav-belt']//a[@id='nav-logo-sprites']")
     private WebElement amazonLogo;
 
-    @FindBy(id = "twotabsearchtextbox")
+    @FindBy(xpath = "//div[@class='nav-fill']//input[@id='twotabsearchtextbox']")
     private WebElement searchInput;
 
-    @FindBy(id = "nav-search-submit-button")
+    @FindBy(xpath = "//div[@class='nav-right']//div[@class='nav-search-submit nav-sprite']")
     private WebElement searchButton;
 
-    @FindBy(id = "glow-ingress-line2")
+    @FindBy(xpath = "//div[@id='nav-global-location-slot']//span[@id='glow-ingress-line2']")
     private WebElement autoLocation;
 
-    @FindBy(id = "nav-link-accountList-nav-line-1")
+    @FindBy(xpath = "//div[@class='nav-right']//a[@id='nav-link-accountList']")
     private WebElement signinButton;
 
     public HomePage(WebDriver driver){
