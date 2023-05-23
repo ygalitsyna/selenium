@@ -1,5 +1,6 @@
 package com.solvd.pages;
 
+import com.solvd.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,11 @@ public class HomePage {
     public HomePage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
+    }
+
+    public HomePage goToPage(){
+        driver.get(ConfigReader.getProperty("url"));
+        return this;
     }
 
     public ResultPage search(String product){

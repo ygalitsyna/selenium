@@ -48,9 +48,6 @@ public class ResultPage {
     }
 
     public boolean isResultsNumberOnPageCorrect(){
-        if(getExpectedNumberOfResultsOnPage(resultsNumberOnPage) == getActualNumberOfResultsOnPage(resultList)){
-            return true;
-        }
-        return false;
+        return (getExpectedNumberOfResultsOnPage(resultsNumberOnPage) == getActualNumberOfResultsOnPage(resultList));
     }
 }
