@@ -2,6 +2,7 @@ package com.solvd;
 
 import com.solvd.pages.HomePage;
 import com.solvd.pages.ResultPage;
+import com.solvd.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;

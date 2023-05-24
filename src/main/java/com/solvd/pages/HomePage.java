@@ -30,15 +30,15 @@ public class HomePage extends AbstractPage {
         driver.get(ConfigReader.getProperty("url"));
     }
 
+    public HomePage goToPage() {
+        getDriver().get(ConfigReader.getProperty("url"));
+        return this;
+    }
+
     public ResultPage search(String product) {
         sendKeys(searchInput, product);
         click(searchButton);
         return new ResultPage(getDriver());
-    }
-
-    public HomePage goToPage() {
-        getDriver().get(ConfigReader.getProperty("url"));
-        return this;
     }
 
     public boolean isLogoPresent() {
