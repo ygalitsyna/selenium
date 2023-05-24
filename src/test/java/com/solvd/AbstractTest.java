@@ -26,10 +26,10 @@ public class AbstractTest {
         } else if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             driver = new RemoteWebDriver(new URL(ConfigReader.getProperty("selenium_url")), options);
-        } else if(browser.equalsIgnoreCase("safari")){
+        } else if (browser.equalsIgnoreCase("safari")) {
             SafariOptions options = new SafariOptions();
             driver = new RemoteWebDriver(new URL(ConfigReader.getProperty("selenium_url")), options);
-        }else {
+        } else {
             throw new IllegalArgumentException("Invalid browser parameter");
         }
         driver.manage().window().maximize();

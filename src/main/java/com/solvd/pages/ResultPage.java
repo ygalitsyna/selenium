@@ -14,7 +14,7 @@ import java.util.List;
 public class ResultPage extends AbstractPage {
     private static final Logger LOGGER = LogManager.getLogger(ResultPage.class);
 
-    @FindBy(xpath = ".//div[@class='a-section']//h2")
+    @FindBy(xpath = ".//div[@class='a-section']//h2//a")
     private List<WebElement> resultList;
 
     @FindBy(xpath = "//span[contains(text(),'results for')]")
@@ -22,6 +22,10 @@ public class ResultPage extends AbstractPage {
 
     public ResultPage(WebDriver driver) {
         super(driver);
+    }
+
+    public List<WebElement> getResultList() {
+        return resultList;
     }
 
     public boolean isResultListEmpty() {
@@ -68,5 +72,16 @@ public class ResultPage extends AbstractPage {
             }
         }
         return true;
+    }
+
+    public String getProductLinkForFirstProduct() {
+        WebDriverWait wait = new WebDriverWait(this.getDriver(), Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOfAllElements(resultList));
+        return resultList.get(0).getAttribute("href");
+    }
+
+    public ProductPage openProductPageByLink(String link) {
+        getDriver().get(link);
+        return new ProductPage(getDriver());
     }
 }

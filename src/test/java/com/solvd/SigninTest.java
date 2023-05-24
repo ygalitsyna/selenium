@@ -14,8 +14,8 @@ public class SigninTest extends AbstractTest {
     public void testUnsuccessfulSignin(String userEmail) {
         WebDriver driver = driverThreadLocal.get();
         HomePage homePage = new HomePage(driver);
-        SigninPage signinPage = homePage.goToSigninPage().signin(userEmail);
-        Assert.assertTrue(signinPage.getAlertHedingText().equalsIgnoreCase("There was a problem"));
+        SigninPage signinPage = homePage.goToPage().goToSigninPage().signin(userEmail);
+        Assert.assertTrue(signinPage.getAlertHeadingText().equalsIgnoreCase("There was a problem"));
         Assert.assertTrue(signinPage.getAlertText().equalsIgnoreCase("We cannot find an account with that email address"));
     }
 }

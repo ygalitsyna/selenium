@@ -15,32 +15,32 @@ public abstract class AbstractPage {
     private static final Logger LOGGER = LogManager.getLogger(AbstractPage.class);
     private WebDriver driver;
 
-    public AbstractPage(WebDriver driver){
+    public AbstractPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void click(WebElement element){
-        try{
+    public void click(WebElement element) {
+        try {
             waitUntilElementToBeClickable(element);
             element.click();
             LOGGER.info("Element {} was clicked", element);
-        }catch(Exception e){
+        } catch (Exception e) {
             LOGGER.warn("Failed to click element {}. Exception {}", element, e.getMessage());
         }
     }
 
-    public void sendKeys(WebElement element, String text){
-        try{
+    public void sendKeys(WebElement element, String text) {
+        try {
             waitUntilElementToBeVisible(element);
             element.sendKeys(text);
-            LOGGER.info("Text {} was sent to the element {}", text, element);
-        }catch(Exception e){
+            LOGGER.info("Text '{}' was sent to the element {}", text, element);
+        } catch (Exception e) {
             LOGGER.warn("Failed to sent text to the element {}. Exception {}", element, e.getMessage());
         }
     }
 
-    public boolean isElementVisible(WebElement element){
+    public boolean isElementVisible(WebElement element) {
         boolean isVisible = true;
         try {
             waitUntilElementToBeVisible(element);
@@ -52,27 +52,27 @@ public abstract class AbstractPage {
         return isVisible;
     }
 
-    public String getWebElementText(WebElement element){
-        try{
+    public String getWebElementText(WebElement element) {
+        try {
             waitUntilElementToBeVisible(element);
             LOGGER.info("Element {} contains text {}", element, element.getText().trim());
-        } catch(TimeoutException e){
+        } catch (TimeoutException e) {
             LOGGER.warn("Failed to find element {}. Exception {}", element, e.getMessage());
         }
         return element.getText().trim();
     }
 
-    public String getWebElementPlaceholder(WebElement element){
+    public String getWebElementPlaceholder(WebElement element) {
         return element.getAttribute("placeholder").trim();
     }
 
-    public void waitUntilElementToBeClickable(WebElement element){
+    public void waitUntilElementToBeClickable(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public void waitUntilElementToBeVisible(WebElement element){
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
+    public void waitUntilElementToBeVisible(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 

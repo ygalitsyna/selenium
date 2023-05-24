@@ -22,31 +22,43 @@ public class HomePage extends AbstractPage {
     @FindBy(xpath = "//div[@class='nav-right']//a[@id='nav-link-accountList']")
     private WebElement signinButton;
 
-    public HomePage(WebDriver driver){
+    @FindBy(xpath = "//span[@id='nav-cart-count']")
+    private WebElement initProductNumberInCart;
+
+    public HomePage(WebDriver driver) {
         super(driver);
         driver.get(ConfigReader.getProperty("url"));
     }
 
-    public ResultPage search(String product){
+    public ResultPage search(String product) {
         sendKeys(searchInput, product);
         click(searchButton);
         return new ResultPage(getDriver());
     }
 
-    public boolean isLogoPresent(){
+    public HomePage goToPage() {
+        getDriver().get(ConfigReader.getProperty("url"));
+        return this;
+    }
+
+    public boolean isLogoPresent() {
         return isElementVisible(amazonLogo);
     }
 
-    public String getAutoLocationText(){
+    public String getAutoLocationText() {
         return getWebElementText(autoLocation);
     }
 
-    public String getSearchBarPlaceholder(){
+    public String getSearchBarPlaceholder() {
         return getWebElementPlaceholder(searchInput);
     }
 
-    public SigninPage goToSigninPage(){
+    public SigninPage goToSigninPage() {
         signinButton.click();
         return new SigninPage(getDriver());
+    }
+
+    public boolean isInitProductNumberInCartEqualsToZero() {
+        return Integer.parseInt(getWebElementText(initProductNumberInCart)) == 0;
     }
 }

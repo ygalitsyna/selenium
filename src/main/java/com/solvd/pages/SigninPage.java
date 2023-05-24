@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class SigninPage extends AbstractPage{
+public class SigninPage extends AbstractPage {
 
     @FindBy(xpath = "//div[@class='a-section']//input[@type='email']")
     private WebElement userEmailInput;
@@ -22,17 +22,17 @@ public class SigninPage extends AbstractPage{
         super(driver);
     }
 
-    public SigninPage signin(String userEmail){
+    public SigninPage signin(String userEmail) {
         sendKeys(userEmailInput, userEmail);
         click(continueButton);
         return new SigninPage(getDriver());
     }
 
-    public String getAlertHedingText(){
+    public String getAlertHeadingText() {
         return getWebElementText(alertHeading);
     }
 
-    public String getAlertText(){
+    public String getAlertText() {
         return getWebElementText(alertText);
     }
 }
