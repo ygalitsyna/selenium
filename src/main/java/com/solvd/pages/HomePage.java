@@ -4,11 +4,11 @@ import com.solvd.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
+public class HomePage extends AbstractPage {
 
-public class HomePage {
-    private WebDriver driver;
+    @FindBy(css = "#nav-logo-sprites")
+    private WebElement amazonLogo;
 
     @FindBy(css = "#twotabsearchtextbox")
     private WebElement searchInput;
@@ -16,19 +16,23 @@ public class HomePage {
     @FindBy(css = "#nav-search-submit-button")
     private WebElement searchButton;
 
-    public HomePage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public HomePage(WebDriver driver) {
+        super(driver);
+        driver.get(ConfigReader.getProperty("url"));
     }
 
-    public HomePage goToPage(){
-        driver.get(ConfigReader.getProperty("url"));
+    public HomePage goToPage() {
+        getDriver().get(ConfigReader.getProperty("url"));
         return this;
     }
 
-    public ResultPage search(String product){
-        searchInput.sendKeys(product);
-        searchButton.click();
-        return new ResultPage(driver);
+    public ResultPage search(String product) {
+        sendKeys(searchInput, product);
+        click(searchButton);
+        return new ResultPage(getDriver());
+    }
+
+    public boolean isLogoPresent() {
+        return isElementVisible(amazonLogo);
     }
 }
