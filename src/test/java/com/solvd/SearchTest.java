@@ -5,24 +5,28 @@ import com.solvd.pages.ResultPage;
 import com.solvd.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class SearchTest extends AbstractTest {
 
     @Test
-    public void testLogo() {
+    @Parameters("search_query")
+    public void testSearchBarText(String searchQuery) {
         WebDriver driver = driverThreadLocal.get();
         HomePage homePage = new HomePage(driver);
         homePage.goToPage();
-        Assert.assertTrue(homePage.isLogoPresent(), "Amazon logo not present on HomePage");
+        Assert.assertTrue(homePage.getSearchBarPlaceholder().equals("Search Amazon"));
     }
 
     @Test
-    public void testSearch() {
+    @Parameters("search_query")
+    public void testSearch(String searchQuery) {
         WebDriver driver = driverThreadLocal.get();
         HomePage homePage = new HomePage(driver);
-        ResultPage resultPage = homePage.goToPage().search("macbook");
+        ResultPage resultPage = homePage.goToPage().search(searchQuery);
         Assert.assertFalse(resultPage.isResultListEmpty(), "List of results is empty.");
         Assert.assertTrue(resultPage.isResultsNumberOnPageCorrect(), "Expected number of results per page does not match the actual number.");
+        Assert.assertTrue(resultPage.isAllResultsMatchCondition(searchQuery), "There are search results that don't match your search query");
     }
 }

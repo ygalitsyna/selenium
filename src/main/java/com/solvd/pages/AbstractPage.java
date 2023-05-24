@@ -26,7 +26,7 @@ public abstract class AbstractPage {
             element.click();
             LOGGER.info("Element {} was clicked", element);
         } catch (Exception e) {
-            LOGGER.warn("Failed to click element {}", element);
+            LOGGER.warn("Failed to click element {}. Exception {}", element, e.getMessage());
         }
     }
 
@@ -34,9 +34,9 @@ public abstract class AbstractPage {
         try {
             waitUntilElementToBeVisible(element);
             element.sendKeys(text);
-            LOGGER.info("Text {} was sent to the element {}", text, element);
+            LOGGER.info("Text '{}' was sent to the element {}", text, element);
         } catch (Exception e) {
-            LOGGER.warn("Failed to sent text to the element {}", element);
+            LOGGER.warn("Failed to sent text to the element {}. Exception {}", element, e.getMessage());
         }
     }
 
@@ -47,18 +47,32 @@ public abstract class AbstractPage {
             LOGGER.info("Element {} is visible", element);
         } catch (TimeoutException e) {
             isVisible = false;
-            LOGGER.info("Element {} isn't visible", element);
+            LOGGER.warn("Element {} isn't visible. Exception {}", element, e.getMessage());
         }
         return isVisible;
     }
 
+    public String getWebElementText(WebElement element) {
+        try {
+            waitUntilElementToBeVisible(element);
+            LOGGER.info("Element {} contains text {}", element, element.getText().trim());
+        } catch (TimeoutException e) {
+            LOGGER.warn("Failed to find element {}. Exception {}", element, e.getMessage());
+        }
+        return element.getText().trim();
+    }
+
+    public String getWebElementPlaceholder(WebElement element) {
+        return element.getAttribute("placeholder").trim();
+    }
+
     public void waitUntilElementToBeClickable(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void waitUntilElementToBeVisible(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 

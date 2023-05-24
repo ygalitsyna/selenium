@@ -1,6 +1,7 @@
 package com.solvd.pages;
 
-import org.openqa.selenium.By;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,8 +12,9 @@ import java.time.Duration;
 import java.util.List;
 
 public class ResultPage extends AbstractPage {
+    private static final Logger LOGGER = LogManager.getLogger(ResultPage.class);
 
-    @FindBy(xpath = ".//div[@class='a-section']//h2")
+    @FindBy(xpath = ".//div[@class='a-section']//h2//a")
     private List<WebElement> resultList;
 
     @FindBy(xpath = "//span[contains(text(),'results for')]")
@@ -20,6 +22,10 @@ public class ResultPage extends AbstractPage {
 
     public ResultPage(WebDriver driver) {
         super(driver);
+    }
+
+    public List<WebElement> getResultList() {
+        return resultList;
     }
 
     public boolean isResultListEmpty() {
@@ -42,11 +48,13 @@ public class ResultPage extends AbstractPage {
         String expectedNumberInString = resultsNumberOnPage.getText();
         String[] array = (expectedNumberInString.split("-"))[1].split(" ");
         int expectedNumber = Integer.parseInt(array[0]);
+        LOGGER.info("Expected number of results in resultlist is {}", expectedNumber);
         return expectedNumber;
     }
 
     public int getActualNumberOfResultsOnPage(List<WebElement> resultList) {
         int actualNumber = resultList.size();
+        LOGGER.info("Actual number of results in resultlist is {}", actualNumber);
         return actualNumber;
     }
 
@@ -55,5 +63,25 @@ public class ResultPage extends AbstractPage {
             return true;
         }
         return false;
+    }
+
+    public boolean isAllResultsMatchCondition(String searchCondition) {
+        for (WebElement element : resultList) {
+            if (!element.getText().toLowerCase().contains(searchCondition.toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String getProductLinkForFirstProduct() {
+        WebDriverWait wait = new WebDriverWait(this.getDriver(), Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOfAllElements(resultList));
+        return resultList.get(0).getAttribute("href");
+    }
+
+    public ProductPage openProductPageByLink(String link) {
+        getDriver().get(link);
+        return new ProductPage(getDriver());
     }
 }
