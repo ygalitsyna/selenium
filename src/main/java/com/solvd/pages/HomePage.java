@@ -18,7 +18,7 @@ public class HomePage extends AbstractPage {
 
     public HomePage(WebDriver driver) {
         super(driver);
-        //driver.get(ConfigReader.getProperty("url"));
+        driver.get(ConfigReader.getProperty("url"));
     }
 
     public HomePage goToPage() {
