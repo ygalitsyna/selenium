@@ -16,6 +16,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.zebrunner</groupId>
+      <artifactId>carina-core</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>4.8.3</version>
