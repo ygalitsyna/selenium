@@ -1,56 +1,58 @@
 package com.solvd.pages;
 
-import com.solvd.utils.ConfigReader;
+import com.zebrunner.carina.utils.Configuration;
+import com.zebrunner.carina.utils.R;
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends AbstractPage {
 
     @FindBy(xpath = "//div[@id='nav-belt']//a[@id='nav-logo-sprites']")
-    private WebElement amazonLogo;
+    private ExtendedWebElement amazonLogo;
 
     @FindBy(xpath = "//div[@class='nav-fill']//input[@id='twotabsearchtextbox']")
-    private WebElement searchInput;
+    private ExtendedWebElement searchInput;
 
     @FindBy(xpath = "//div[@class='nav-right']//div[@class='nav-search-submit nav-sprite']")
-    private WebElement searchButton;
+    private ExtendedWebElement searchButton;
 
     @FindBy(xpath = "//div[@id='nav-global-location-slot']//span[@id='glow-ingress-line2']")
-    private WebElement autoLocation;
+    private ExtendedWebElement autoLocation;
 
     @FindBy(xpath = "//div[@class='nav-right']//a[@id='nav-link-accountList']")
-    private WebElement signinButton;
+    private ExtendedWebElement signinButton;
 
     @FindBy(xpath = "//span[@id='nav-cart-count']")
-    private WebElement initProductNumberInCart;
+    private ExtendedWebElement initProductNumberInCart;
 
     public HomePage(WebDriver driver) {
         super(driver);
-        driver.get(ConfigReader.getProperty("url"));
+        setPageAbsoluteURL(R.CONFIG.get(Configuration.Parameter.URL.getKey()));
     }
 
     public ResultPage search(String product) {
-        sendKeys(searchInput, product);
-        click(searchButton);
+        searchInput.type(product);
+        searchButton.click();
         return new ResultPage(getDriver());
     }
 
     public HomePage goToPage() {
-        getDriver().get(ConfigReader.getProperty("url"));
+        open();
         return this;
     }
 
     public boolean isLogoPresent() {
-        return isElementVisible(amazonLogo);
+        return amazonLogo.isVisible();
     }
 
     public String getAutoLocationText() {
-        return getWebElementText(autoLocation);
+        return autoLocation.getText();
     }
 
     public String getSearchBarPlaceholder() {
-        return getWebElementPlaceholder(searchInput);
+        return searchInput.getAttribute("placeholder").trim();
     }
 
     public SigninPage goToSigninPage() {
@@ -59,6 +61,6 @@ public class HomePage extends AbstractPage {
     }
 
     public boolean isInitProductNumberInCartEqualsToZero() {
-        return Integer.parseInt(getWebElementText(initProductNumberInCart)) == 0;
+        return Integer.parseInt(initProductNumberInCart.getText()) == 0;
     }
 }

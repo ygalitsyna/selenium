@@ -1,46 +1,38 @@
 package com.solvd.pages;
 
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class ProductPage extends AbstractPage {
     private static final Logger LOGGER = LogManager.getLogger(ProductPage.class);
 
     @FindBy(xpath = "//input[@id ='add-to-cart-button']")
-    private WebElement addToCartButton;
+    private ExtendedWebElement addToCartButton;
 
-    @FindBy(xpath = "//a[@id='attach-close_sideSheet-link']")
-    private WebElement closeButton;
-
-    @FindBy(xpath = "//a[@class='nav-a nav-a-2 nav-progressive-attribute']")
-    private WebElement cartLabel;
+    @FindBy(xpath = "//span[@id='attach-sidesheet-view-cart-button']")
+    private ExtendedWebElement cartButton;
 
     @FindBy(xpath = "//div[@id='titleSection']//span[@id='productTitle']")
-    private WebElement productTitleOnProductPage;
+    private ExtendedWebElement productTitleOnProductPage;
 
     public ProductPage(WebDriver driver) {
         super(driver);
     }
 
     public CartPage addProductToCartAndgoToCartPage() {
-        click(addToCartButton);
-        click(closeButton);
-        WebDriverWait wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
-        wait2.until(ExpectedConditions.invisibilityOf(closeButton));
-        click(cartLabel);
+        addToCartButton.clickByJs();
+        waitUntil(ExpectedConditions.visibilityOf(cartButton.getElement()), 10);
+        cartButton.click();
         return new CartPage(getDriver());
     }
 
     public String getProductTitleText() {
-        waitUntilElementToBeVisible(productTitleOnProductPage);
-        String productTitle = getWebElementText(productTitleOnProductPage).trim();
+        String productTitle = productTitleOnProductPage.getText().trim();
         LOGGER.info("Title on ProductPage is '{}'", productTitle);
         return productTitle;
     }

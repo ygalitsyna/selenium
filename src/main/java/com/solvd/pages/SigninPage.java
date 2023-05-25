@@ -1,38 +1,39 @@
 package com.solvd.pages;
 
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class SigninPage extends AbstractPage {
 
     @FindBy(xpath = "//div[@class='a-section']//input[@type='email']")
-    private WebElement userEmailInput;
+    private ExtendedWebElement userEmailInput;
 
     @FindBy(css = "#continue")
-    private WebElement continueButton;
+    private ExtendedWebElement continueButton;
 
     @FindBy(css = ".a-alert-heading")
-    private WebElement alertHeading;
+    private ExtendedWebElement alertHeading;
 
     @FindBy(css = ".a-list-item")
-    private WebElement alertText;
+    private ExtendedWebElement alertText;
 
     public SigninPage(WebDriver driver) {
         super(driver);
     }
 
     public SigninPage signin(String userEmail) {
-        sendKeys(userEmailInput, userEmail);
-        click(continueButton);
+        userEmailInput.type(userEmail);
+        continueButton.click();
         return new SigninPage(getDriver());
     }
 
     public String getAlertHeadingText() {
-        return getWebElementText(alertHeading);
+        return alertHeading.getText();
     }
 
     public String getAlertText() {
-        return getWebElementText(alertText);
+        return alertText.getText();
     }
 }
