@@ -1,11 +1,13 @@
-package com.solvd.pages;
+package com.solvd.pages.desktop;
 
+import com.solvd.pages.common.SigninPageBase;
+import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-public class SigninPage extends AbstractPage {
+@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = SigninPageBase.class)
+public class SigninPage extends SigninPageBase {
 
     @FindBy(xpath = "//div[@class='a-section']//input[@type='email']")
     private ExtendedWebElement userEmailInput;
@@ -29,10 +31,12 @@ public class SigninPage extends AbstractPage {
         return new SigninPage(getDriver());
     }
 
+    @Override
     public String getAlertHeadingText() {
         return alertHeading.getText();
     }
 
+    @Override
     public String getAlertText() {
         return alertText.getText();
     }

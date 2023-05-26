@@ -1,14 +1,16 @@
-package com.solvd.pages;
+package com.solvd.pages.desktop;
 
+import com.solvd.pages.common.CartPageBase;
+import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class CartPage extends AbstractPage {
+@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = CartPageBase.class)
+public class CartPage extends CartPageBase {
     private static final Logger LOGGER = LogManager.getLogger(CartPage.class);
 
     @FindBy(xpath = "//span[@id='nav-cart-count']")
@@ -30,6 +32,7 @@ public class CartPage extends AbstractPage {
         super(driver);
     }
 
+    @Override
     public boolean isProductAddedToCartCorrectly() {
         return getCurrentProductNumberInCart(currentProductNumberInCart)
                 && getCurrentProductNumberInCart(dropdownPromptButton)
@@ -37,15 +40,18 @@ public class CartPage extends AbstractPage {
                 && getProductNumberInSubtotalLabel(subtotalLabelInActiveCart);
     }
 
+    @Override
     public boolean getCurrentProductNumberInCart(ExtendedWebElement element) {
         return Integer.parseInt(element.getText().trim()) == 1;
     }
 
+    @Override
     public boolean getProductNumberInSubtotalLabel(ExtendedWebElement element) {
         String[] array = element.getText().split("\\D+");
         return Integer.parseInt(String.join("", array)) == 1;
     }
 
+    @Override
     public String getProductTitleText() {
         waitUntil(ExpectedConditions.visibilityOf(productTitleOnCartPage.getElement()), 10);
         String productTitle = productTitleOnCartPage.getText().trim();

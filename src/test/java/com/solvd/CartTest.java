@@ -1,9 +1,9 @@
 package com.solvd;
 
-import com.solvd.pages.CartPage;
-import com.solvd.pages.HomePage;
-import com.solvd.pages.ProductPage;
-import com.solvd.pages.ResultPage;
+import com.solvd.pages.common.CartPageBase;
+import com.solvd.pages.common.HomePageBase;
+import com.solvd.pages.common.ProductPageBase;
+import com.solvd.pages.common.ResultPageBase;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import org.testng.Assert;
@@ -16,13 +16,13 @@ public class CartTest implements IAbstractTest {
     @Parameters("search_query")
     @MethodOwner(owner = "ygalitsyna")
     public void testAddProductToCart(String searchQuery) {
-        HomePage homePage = new HomePage(getDriver());
+        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.goToPage();
         Assert.assertTrue(homePage.isInitProductNumberInCartEqualsToZero(), "The number of products in the cart is not equal to 0");
-        ResultPage resultPage = homePage.search(searchQuery);
-        ProductPage productPage = resultPage.openProductPageByLink(resultPage.getProductLinkForSecondProduct());
+        ResultPageBase resultPage = homePage.search(searchQuery);
+        ProductPageBase productPage = resultPage.openProductPageByLink(resultPage.getProductLinkForSecondProduct());
         String productTitleOnProductPage = productPage.getProductTitleText();
-        CartPage cartPage = productPage.addProductToCartAndgoToCartPage();
+        CartPageBase cartPage = productPage.addProductToCartAndGoToCartPage();
         String productTitleOnCartPage = cartPage.getProductTitleText();
         Assert.assertTrue(cartPage.isProductAddedToCartCorrectly(), "The number of products in the cart is not equal to 1");
         Assert.assertEquals(productTitleOnProductPage, productTitleOnCartPage);

@@ -1,14 +1,17 @@
-package com.solvd.pages;
+package com.solvd.pages.desktop;
 
+import com.solvd.pages.common.CartPageBase;
+import com.solvd.pages.common.ProductPageBase;
+import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class ProductPage extends AbstractPage {
+@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = ProductPageBase.class)
+public class ProductPage extends ProductPageBase {
     private static final Logger LOGGER = LogManager.getLogger(ProductPage.class);
 
     @FindBy(xpath = "//input[@id ='add-to-cart-button']")
@@ -24,13 +27,15 @@ public class ProductPage extends AbstractPage {
         super(driver);
     }
 
-    public CartPage addProductToCartAndgoToCartPage() {
+    @Override
+    public CartPageBase addProductToCartAndGoToCartPage() {
         addToCartButton.clickByJs();
         waitUntil(ExpectedConditions.visibilityOf(cartButton.getElement()), 10);
         cartButton.click();
-        return new CartPage(getDriver());
+        return initPage(getDriver(), CartPageBase.class);
     }
 
+    @Override
     public String getProductTitleText() {
         String productTitle = productTitleOnProductPage.getText().trim();
         LOGGER.info("Title on ProductPage is '{}'", productTitle);

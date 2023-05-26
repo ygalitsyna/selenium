@@ -1,6 +1,6 @@
 package com.solvd;
 
-import com.solvd.pages.HomePage;
+import com.solvd.pages.common.HomePageBase;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import org.testng.Assert;
@@ -11,7 +11,7 @@ public class HeaderTest implements IAbstractTest {
     @Test
     @MethodOwner(owner = "ygalitsyna")
     public void testLogo() {
-        HomePage homePage = new HomePage(getDriver());
+        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.goToPage();
         Assert.assertTrue(homePage.isLogoPresent(), "Amazon logo not present on HomePage");
     }
@@ -19,7 +19,7 @@ public class HeaderTest implements IAbstractTest {
     @Test
     @MethodOwner(owner = "ygalitsyna")
     public void testLocation() {
-        HomePage homePage = new HomePage(getDriver());
+        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.goToPage();
         Assert.assertTrue(homePage.getAutoLocationText().equalsIgnoreCase("Poland"), "Location not working properly");
     }
