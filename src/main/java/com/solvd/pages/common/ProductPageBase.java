@@ -9,7 +9,7 @@ public abstract class ProductPageBase extends AbstractPage {
         super(driver);
     }
 
-    public abstract CartPageBase addProductToCartAndGoToCartPage();
+    public abstract NewItemsInCartPageBase addProductToCart();
 
     public abstract String getProductTitleText();
 }

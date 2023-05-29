@@ -1,5 +1,6 @@
 package com.solvd.pages.desktop;
 
+import com.solvd.pages.common.ProductPageBase;
 import com.solvd.pages.common.ResultPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
@@ -73,13 +74,13 @@ public class ResultPage extends ResultPageBase {
     }
 
     @Override
-    public String getProductLinkForSecondProduct() {
-        return resultList.get(1).getAttribute("href");
+    public String getProductLinkForFirstProduct() {
+        return resultList.get(0).getAttribute("href");
     }
 
     @Override
-    public ProductPage openProductPageByLink(String link) {
+    public ProductPageBase openProductPageByLink(String link) {
         getDriver().get(link);
-        return new ProductPage(getDriver());
+        return initPage(getDriver(), ProductPageBase.class);
     }
 }

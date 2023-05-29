@@ -1,9 +1,6 @@
 package com.solvd;
 
-import com.solvd.pages.common.CartPageBase;
-import com.solvd.pages.common.HomePageBase;
-import com.solvd.pages.common.ProductPageBase;
-import com.solvd.pages.common.ResultPageBase;
+import com.solvd.pages.common.*;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import org.testng.Assert;
@@ -20,9 +17,9 @@ public class CartTest implements IAbstractTest {
         homePage.goToPage();
         Assert.assertTrue(homePage.isInitProductNumberInCartEqualsToZero(), "The number of products in the cart is not equal to 0");
         ResultPageBase resultPage = homePage.search(searchQuery);
-        ProductPageBase productPage = resultPage.openProductPageByLink(resultPage.getProductLinkForSecondProduct());
+        ProductPageBase productPage = resultPage.openProductPageByLink(resultPage.getProductLinkForFirstProduct());
         String productTitleOnProductPage = productPage.getProductTitleText();
-        CartPageBase cartPage = productPage.addProductToCartAndGoToCartPage();
+        CartPageBase cartPage = productPage.addProductToCart().goToCartPage();
         String productTitleOnCartPage = cartPage.getProductTitleText();
         Assert.assertTrue(cartPage.isProductAddedToCartCorrectly(), "The number of products in the cart is not equal to 1");
         Assert.assertEquals(productTitleOnProductPage, productTitleOnCartPage);

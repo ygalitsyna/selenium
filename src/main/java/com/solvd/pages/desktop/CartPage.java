@@ -3,6 +3,7 @@ package com.solvd.pages.desktop;
 import com.solvd.pages.common.CartPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -54,7 +55,8 @@ public class CartPage extends CartPageBase {
     @Override
     public String getProductTitleText() {
         waitUntil(ExpectedConditions.visibilityOf(productTitleOnCartPage.getElement()), 10);
-        String productTitle = productTitleOnCartPage.getText().trim();
+        String entireProductTitle = productTitleOnCartPage.getText();
+        String productTitle = StringUtils.substring(entireProductTitle, 0, entireProductTitle.indexOf(';'));
         LOGGER.info("Title on CartPage is '{}'", productTitle);
         return productTitle;
     }

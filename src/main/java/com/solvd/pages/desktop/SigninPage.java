@@ -25,10 +25,11 @@ public class SigninPage extends SigninPageBase {
         super(driver);
     }
 
-    public SigninPage signin(String userEmail) {
+    @Override
+    public SigninPageBase signin(String userEmail) {
         userEmailInput.type(userEmail);
         continueButton.click();
-        return new SigninPage(getDriver());
+        return initPage(getDriver(), SigninPageBase.class);
     }
 
     @Override

@@ -43,12 +43,6 @@ public class HomePage extends HomePageBase {
         return initPage(getDriver(), ResultPageBase.class);
     }
 
-//    @Override
-//    public HomePage goToPage() {
-//        open();
-//        return this;
-//    }
-
     @Override
     public boolean isLogoPresent() {
         return amazonLogo.isVisible();

@@ -40,11 +40,6 @@ public class HomePage extends HomePageBase {
         return initPage(getDriver(), ResultPageBase.class);
     }
 
-//    public com.solvd.pages.desktop.HomePage goToPage() {
-//        open();
-//        return this;
-//    }
-
     @Override
     public boolean isLogoPresent() {
         return amazonLogo.isVisible();

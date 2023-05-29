@@ -23,7 +23,7 @@ public abstract class ResultPageBase extends AbstractPage {
 
     public abstract boolean isAllResultsMatchCondition(String searchCondition);
 
-    public abstract String getProductLinkForSecondProduct();
+    public abstract String getProductLinkForFirstProduct();
 
     public abstract ProductPageBase openProductPageByLink(String link);
 }
