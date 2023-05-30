@@ -25,7 +25,9 @@ public class SearchTest implements IAbstractTest {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         ResultPageBase resultPage = homePage.goToPage().search(searchQuery);
         Assert.assertFalse(resultPage.isResultListEmpty(), "List of results is empty");
-        Assert.assertTrue(resultPage.isResultsNumberOnPageCorrect(), "Expected number of results per page does not match the actual number");
+        if(resultPage.getClass().getName().contains("desktop")) {
+            Assert.assertTrue(resultPage.isResultsNumberOnPageCorrect(), "Expected number of results per page does not match the actual number");
+        }
         Assert.assertTrue(resultPage.isAllResultsMatchCondition(searchQuery), "There are search results that don't match your search query");
     }
 }

@@ -1,12 +1,13 @@
 package com.solvd.pages.common;
 
+import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
-public abstract class ResultPageBase extends AbstractPage {
+public abstract class ResultPageBase extends AbstractPage implements IMobileUtils {
     public ResultPageBase(WebDriver driver) {
         super(driver);
     }

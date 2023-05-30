@@ -63,14 +63,28 @@ public class ResultPage extends ResultPageBase {
         return (getExpectedNumberOfResultsOnPage(resultsNumberOnPage) == getActualNumberOfResultsOnPage(resultList));
     }
 
+//    @Override
+//    public boolean isAllResultsMatchCondition(String searchCondition) {
+//        for (ExtendedWebElement element : resultList) {
+//            if (!element.getText().toLowerCase().contains(searchCondition.toLowerCase())) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
     @Override
     public boolean isAllResultsMatchCondition(String searchCondition) {
+        boolean isMatch = true;
         for (ExtendedWebElement element : resultList) {
             if (!element.getText().toLowerCase().contains(searchCondition.toLowerCase())) {
-                return false;
+                System.out.println("Error!!!!");
+                System.out.println(element.getText());
+                isMatch = false;
+                return isMatch;
             }
         }
-        return true;
+        return isMatch;
     }
 
     @Override

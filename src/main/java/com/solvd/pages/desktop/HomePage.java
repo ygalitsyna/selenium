@@ -66,6 +66,6 @@ public class HomePage extends HomePageBase {
 
     @Override
     public boolean isInitProductNumberInCartEqualsToZero() {
-        return Integer.parseInt(initProductNumberInCart.getText()) == 0;
+        return Integer.parseInt(initProductNumberInCart.getText().trim()) == 0;
     }
 }
