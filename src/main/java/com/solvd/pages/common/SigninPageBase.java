@@ -4,7 +4,7 @@ import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 
 public abstract class SigninPageBase extends AbstractPage {
-    protected SigninPageBase(WebDriver driver) {
+    public SigninPageBase(WebDriver driver) {
         super(driver);
     }
 

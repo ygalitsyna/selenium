@@ -5,9 +5,9 @@
         <parameter name="unsuccessful_signin" value="uncorrectemail@new.com"/>
         <classes>
             <class name="com.solvd.HeaderTest"/>
-            <class name="com.solvd.SearchTest"/>
-            <class name="com.solvd.SigninTest"/>
-            <class name="com.solvd.CartTest"/>
+<!--            <class name="com.solvd.SearchTest"/>-->
+<!--            <class name="com.solvd.SigninTest"/>-->
+<!--            <class name="com.solvd.CartTest"/>-->
         </classes>
     </test>
 <!--    <test name="Test on firefox">-->

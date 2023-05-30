@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class ProductPageBase extends AbstractPage {
 
-    protected ProductPageBase(WebDriver driver) {
+    public ProductPageBase(WebDriver driver) {
         super(driver);
     }
 

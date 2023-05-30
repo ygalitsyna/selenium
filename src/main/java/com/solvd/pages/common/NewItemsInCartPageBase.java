@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class NewItemsInCartPageBase extends AbstractPage {
 
-    protected NewItemsInCartPageBase(WebDriver driver) {
+    public NewItemsInCartPageBase(WebDriver driver) {
         super(driver);
     }
 

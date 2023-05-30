@@ -5,13 +5,14 @@ import com.solvd.pages.common.ResultPageBase;
 import com.solvd.pages.common.SigninPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = HomePageBase.class)
 public class HomePage extends HomePageBase {
 
-    @FindBy(xpath = "//div[@id='nav-belt']//a[@id='nav-logo-sprites']")
+    @FindBy(id = "nav-logo-sprites")
     private ExtendedWebElement amazonLogo;
 
     @FindBy(xpath = "//div[@class='nav-fill']//input[@id='twotabsearchtextbox']")
@@ -20,7 +21,7 @@ public class HomePage extends HomePageBase {
     @FindBy(xpath = "//div[@class='nav-right']//div[@class='nav-search-submit nav-sprite']")
     private ExtendedWebElement searchButton;
 
-    @FindBy(xpath = "//div[@id='nav-global-location-slot']//span[@id='glow-ingress-line2']")
+    @FindBy(id = "glow-ingress-single-line")
     private ExtendedWebElement autoLocation;
 
     @FindBy(xpath = "//div[@class='nav-right']//a[@id='nav-link-accountList']")
@@ -47,7 +48,7 @@ public class HomePage extends HomePageBase {
 
     @Override
     public String getAutoLocationText() {
-        return autoLocation.getText();
+        return StringUtils.substringAfter(autoLocation.getText(), "to ");
     }
 
     @Override
