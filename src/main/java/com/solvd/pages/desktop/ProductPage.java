@@ -38,7 +38,7 @@ public class ProductPage extends ProductPageBase {
     @Override
     public String getProductTitleText() {
         String entireProductTitle = productTitleOnProductPage.getText();
-        String productTitle = StringUtils.substring(entireProductTitle, 0, entireProductTitle.indexOf(';'));
+        String productTitle = StringUtils.substring(entireProductTitle, 0, 60);
         LOGGER.info("Title on ProductPage is '{}'", productTitle);
         return productTitle;
     }

@@ -22,13 +22,8 @@ public class ProductPage extends ProductPageBase implements IMobileUtils {
     @FindBy(id = "title")
     private ExtendedWebElement productTitleOnProductPage;
 
-//    @FindBy(xpath = "//span[@class='a-sheet-close a-focus-hidden']")
-//    @FindBy(xpath = "//div[@class='a-sheet-web-container a-experimental-ios-scrolling']//span[@class='a-sheet-close a-focus-hidden']")
-//    @FindBy(xpath = "//span[@aria-label='DONE']")
-//    @FindBy(className = "a-sheet-close a-focus-hidden")
-//    @FindBy(xpath = "//button[@aria-label='DONE']")
-//    @FindBy(css = "button[aria-label='DONE']")
-//    private ExtendedWebElement doneButton;
+    @FindBy(xpath = "//div[@class='a-sheet-web-container a-experimental-ios-scrolling']//span[@class='a-sheet-close a-focus-hidden']")
+    private ExtendedWebElement doneButton;
 
     @FindBy(id = "cart-size")
     private ExtendedWebElement cartLabel;
@@ -38,8 +33,10 @@ public class ProductPage extends ProductPageBase implements IMobileUtils {
     }
 
     public CartPageBase addProductToCartAndGoToCartPage() {
-        waitUntil(ExpectedConditions.visibilityOf(addToCartButton.getElement()), 10);
+        addToCartButton.scrollTo();
         addToCartButton.clickByJs();
+        waitUntil(ExpectedConditions.elementToBeClickable(doneButton.getElement()), 10);
+        doneButton.click();
         cartLabel.clickByJs();
         return initPage(getDriver(), CartPageBase.class);
     }
@@ -47,7 +44,7 @@ public class ProductPage extends ProductPageBase implements IMobileUtils {
     @Override
     public String getProductTitleText() {
         String entireProductTitle = productTitleOnProductPage.getText();
-        String productTitle = StringUtils.substring(entireProductTitle, 0, entireProductTitle.indexOf(';'));
+        String productTitle = StringUtils.substring(entireProductTitle, 0, 60);
         LOGGER.info("Title on ProductPage is '{}'", productTitle);
         return productTitle;
     }

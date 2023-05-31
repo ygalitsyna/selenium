@@ -21,7 +21,7 @@ public class CartPage extends CartPageBase {
     @FindBy(xpath = "//div[@class='sc-quantity-label ']/span/a")
     private ExtendedWebElement dropdownPromptButton;
 
-    @FindBy(className = "a-truncate-full a-offscreen")
+    @FindBy(xpath = "//div[@class='sc-list-item-content']//span[@class='a-truncate-cut']")
     private ExtendedWebElement productTitleOnCartPage;
 
     public CartPage(WebDriver driver) {
@@ -48,7 +48,7 @@ public class CartPage extends CartPageBase {
     public String getProductTitleText() {
         waitUntil(ExpectedConditions.visibilityOf(productTitleOnCartPage.getElement()), 10);
         String entireProductTitle = productTitleOnCartPage.getText();
-        String productTitle = StringUtils.substring(entireProductTitle, 0, entireProductTitle.indexOf(';'));
+        String productTitle = StringUtils.substring(entireProductTitle, 0, 60);
         LOGGER.info("Title on CartPage is '{}'", productTitle);
         return productTitle;
     }
