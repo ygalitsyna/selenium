@@ -19,7 +19,12 @@ public class CartTest implements IAbstractTest {
         ResultPageBase resultPage = homePage.search(searchQuery);
         ProductPageBase productPage = resultPage.openProductPageByLink(resultPage.getProductLinkForFirstProduct());
         String productTitleOnProductPage = productPage.getProductTitleText();
-        CartPageBase cartPage = productPage.addProductToCart().goToCartPage();
+        CartPageBase cartPage;
+        if(productPage.getClass().getName().contains("desktop")) {
+            cartPage = productPage.addProductToCartAndGoToCartPage();
+        }else{
+            cartPage = productPage.addProductToCartAndGoToCartPage();
+        }
         String productTitleOnCartPage = cartPage.getProductTitleText();
         Assert.assertTrue(cartPage.isProductAddedToCartCorrectly(), "The number of products in the cart is not equal to 1");
         Assert.assertEquals(productTitleOnProductPage, productTitleOnCartPage);

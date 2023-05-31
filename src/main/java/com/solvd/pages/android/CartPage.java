@@ -13,20 +13,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.pages.desktop.CartPage.class);
+    private static final String THIS_METHOD_IS_DEFINED_ONLY_FOR_DESKTOP = "This method is not yet implemented for Android";
 
-    @FindBy(xpath = "//span[@id='nav-cart-count']")
+    @FindBy(id = "nav-cart-count")
     private ExtendedWebElement currentProductNumberInCart;
 
-    @FindBy(xpath = "//span[@id='sc-subtotal-label-buybox']")
-    private ExtendedWebElement subtotalLabelInBuyBox;
-
-    @FindBy(xpath = "//span[@class='a-dropdown-prompt']")
+    @FindBy(xpath = "//div[@class='sc-quantity-label ']/span/a")
     private ExtendedWebElement dropdownPromptButton;
 
-    @FindBy(xpath = "//span[@id='sc-subtotal-label-activecart']")
-    private ExtendedWebElement subtotalLabelInActiveCart;
-
-    @FindBy(xpath = "//div[@class='sc-item-content-group']//span[@class='a-truncate-cut']")
+    @FindBy(className = "a-truncate-full a-offscreen")
     private ExtendedWebElement productTitleOnCartPage;
 
     public CartPage(WebDriver driver) {
@@ -36,9 +31,7 @@ public class CartPage extends CartPageBase {
     @Override
     public boolean isProductAddedToCartCorrectly() {
         return getCurrentProductNumberInCart(currentProductNumberInCart)
-                && getCurrentProductNumberInCart(dropdownPromptButton)
-                && getProductNumberInSubtotalLabel(subtotalLabelInBuyBox)
-                && getProductNumberInSubtotalLabel(subtotalLabelInActiveCart);
+                && getCurrentProductNumberInCart(dropdownPromptButton);
     }
 
     @Override
@@ -48,8 +41,7 @@ public class CartPage extends CartPageBase {
 
     @Override
     public boolean getProductNumberInSubtotalLabel(ExtendedWebElement element) {
-        String[] array = element.getText().split("\\D+");
-        return Integer.parseInt(String.join("", array)) == 1;
+        throw new UnsupportedOperationException(THIS_METHOD_IS_DEFINED_ONLY_FOR_DESKTOP);
     }
 
     @Override

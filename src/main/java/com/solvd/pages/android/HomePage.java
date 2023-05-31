@@ -16,20 +16,16 @@ public class HomePage extends HomePageBase implements IMobileUtils {
     @FindBy(id = "nav-logo-sprites")
     private ExtendedWebElement amazonLogo;
 
-    //@FindBy(xpath = "//div[@class='nav-fill']//input[@id='twotabsearchtextbox']")
-    //@FindBy(xpath = "//input[@id='nav-search-keywords']")
     @FindBy(xpath = "//input[@name='k']")
     private ExtendedWebElement searchInput;
 
-    //@FindBy(xpath = "//div[@class='nav-right']//div[@class='nav-search-submit nav-sprite']")
     @FindBy(xpath = "//form[@id='nav-search-form']/div[2]/div")
     private ExtendedWebElement searchButton;
 
     @FindBy(id = "glow-ingress-single-line")
     private ExtendedWebElement autoLocation;
 
-    //@FindBy(xpath = "//div[@class='nav-right']//a[@id='nav-link-accountList']")
-    @FindBy(xpath = "//div[@class='nav-right']//div[@id='nav-progressive-greeting']")
+    @FindBy(id = "nav-progressive-greeting")
     private ExtendedWebElement signinButton;
 
     @FindBy(xpath = "//span[@id='nav-cart-count']")

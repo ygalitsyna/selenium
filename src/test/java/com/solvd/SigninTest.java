@@ -16,7 +16,7 @@ public class SigninTest implements IAbstractTest {
     public void testUnsuccessfulSignin(String userEmail) {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         SigninPageBase signinPage = homePage.goToPage().goToSigninPage().signin(userEmail);
-        Assert.assertTrue(signinPage.getAlertHeadingText().equalsIgnoreCase("There was a problem"), "Alert heading is not correct");
-        Assert.assertTrue(signinPage.getAlertText().equalsIgnoreCase("We cannot find an account with that email address"), "Alert text is not correct");
+        Assert.assertTrue(signinPage.isAlertHeadingCorrect(), "Alert heading is not correct");
+        Assert.assertTrue(signinPage.isAlertTextCorrect(), "Alert text is not correct");
     }
 }

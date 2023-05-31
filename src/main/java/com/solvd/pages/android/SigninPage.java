@@ -9,16 +9,16 @@ import org.openqa.selenium.support.FindBy;
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = SigninPageBase.class)
 public class SigninPage extends SigninPageBase {
 
-    @FindBy(xpath = "//div[@class='a-section']//input[@type='email']")
+    @FindBy(id = "ap_email_login")
     private ExtendedWebElement userEmailInput;
 
-    @FindBy(css = "#continue")
+    @FindBy(xpath = "//span[@class='a-button a-button-span12 a-button-primary']//input[@id='continue']")
     private ExtendedWebElement continueButton;
 
-    @FindBy(css = ".a-alert-heading")
+    @FindBy(xpath = "//div[@id='auth-warning-message-box']//h4[@class='a-alert-heading']")
     private ExtendedWebElement alertHeading;
 
-    @FindBy(css = ".a-list-item")
+    @FindBy(xpath = "//div[@id='auth-warning-message-box']//span[@class='a-list-item']")
     private ExtendedWebElement alertText;
 
     public SigninPage(WebDriver driver) {
@@ -34,11 +34,19 @@ public class SigninPage extends SigninPageBase {
 
     @Override
     public String getAlertHeadingText() {
-        return alertHeading.getText();
+        return alertHeading.getText().trim();
     }
 
     @Override
     public String getAlertText() {
-        return alertText.getText();
+        return alertText.getText().trim();
+    }
+
+    public boolean isAlertHeadingCorrect(){
+        return getAlertHeadingText().equals("No account found with email address");
+    }
+
+    public boolean isAlertTextCorrect(){
+        return getAlertText().equals("Please check your email address or click Create Account if you are new to Amazon.");
     }
 }

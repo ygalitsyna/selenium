@@ -34,11 +34,19 @@ public class SigninPage extends SigninPageBase {
 
     @Override
     public String getAlertHeadingText() {
-        return alertHeading.getText();
+        return alertHeading.getText().trim();
     }
 
     @Override
     public String getAlertText() {
-        return alertText.getText();
+        return alertText.getText().trim();
+    }
+
+    public boolean isAlertHeadingCorrect(){
+        return getAlertHeadingText().equals("There was a problem");
+    }
+
+    public boolean isAlertTextCorrect(){
+        return getAlertText().equals("We cannot find an account with that email address");
     }
 }

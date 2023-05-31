@@ -13,4 +13,8 @@ public abstract class SigninPageBase extends AbstractPage {
     public abstract String getAlertHeadingText();
 
     public abstract String getAlertText();
+
+    public abstract boolean isAlertHeadingCorrect();
+
+    public abstract boolean isAlertTextCorrect();
 }

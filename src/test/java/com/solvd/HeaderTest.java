@@ -10,7 +10,7 @@ public class HeaderTest implements IAbstractTest {
 
     @Test
     @MethodOwner(owner = "ygalitsyna")
-    public void testLogo() throws InterruptedException {
+    public void testLogo() {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.goToPage();
         Assert.assertTrue(homePage.isLogoPresent(), "Amazon logo not present on HomePage");
