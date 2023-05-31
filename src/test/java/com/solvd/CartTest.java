@@ -1,28 +1,27 @@
 package com.solvd;
 
-import com.solvd.pages.CartPage;
-import com.solvd.pages.HomePage;
-import com.solvd.pages.ProductPage;
-import com.solvd.pages.ResultPage;
-import org.openqa.selenium.WebDriver;
+import com.solvd.pages.common.*;
+import com.zebrunner.carina.core.IAbstractTest;
+import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class CartTest extends AbstractTest {
+public class CartTest implements IAbstractTest {
 
     @Test
     @Parameters("search_query")
+    @MethodOwner(owner = "ygalitsyna")
     public void testAddProductToCart(String searchQuery) {
-        WebDriver driver = driverThreadLocal.get();
-        HomePage homePage = new HomePage(driver);
-        Assert.assertTrue(homePage.isInitProductNumberInCartEqualsToZero());
-        ResultPage resultPage = homePage.goToPage().search(searchQuery);
-        ProductPage productPage = resultPage.openProductPageByLink(resultPage.getProductLinkForFirstProduct());
+        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
+        homePage.goToPage();
+        Assert.assertTrue(homePage.isInitProductNumberInCartEqualsToZero(), "The number of products in the cart is not equal to 0");
+        ResultPageBase resultPage = homePage.search(searchQuery);
+        ProductPageBase productPage = resultPage.openProductPageByLink(resultPage.getProductLinkForFirstProduct());
         String productTitleOnProductPage = productPage.getProductTitleText();
-        CartPage cartPage = productPage.addProductToCartAndgoToCartPage();
+        CartPageBase cartPage = productPage.addProductToCartAndGoToCartPage();
         String productTitleOnCartPage = cartPage.getProductTitleText();
-        Assert.assertTrue(cartPage.isProductAddedToCartCorrectly());
-        Assert.assertEquals(productTitleOnProductPage,productTitleOnCartPage);
+        Assert.assertTrue(cartPage.isProductAddedToCartCorrectly(), "The number of products in the cart is not equal to 1");
+        Assert.assertEquals(productTitleOnProductPage, productTitleOnCartPage);
     }
 }
