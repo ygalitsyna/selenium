@@ -22,7 +22,7 @@ public class ProductPage extends ProductPageBase implements IMobileUtils {
     @FindBy(id = "title")
     private ExtendedWebElement productTitleOnProductPage;
 
-    @FindBy(xpath = "//div[@class='a-sheet-web-container a-experimental-ios-scrolling']//span[@class='a-sheet-close a-focus-hidden']")
+    @FindBy(xpath = "//div[@class='a-sheet-web-container a-experimental-ios-scrolling']//button[@class='a-sheet-close a-focus-hidden']")
     private ExtendedWebElement doneButton;
 
     @FindBy(id = "cart-size")
@@ -44,7 +44,7 @@ public class ProductPage extends ProductPageBase implements IMobileUtils {
     @Override
     public String getProductTitleText() {
         String entireProductTitle = productTitleOnProductPage.getText();
-        String productTitle = StringUtils.substring(entireProductTitle, 0, 60);
+        String productTitle = StringUtils.substring(entireProductTitle, 0, 50);
         LOGGER.info("Title on ProductPage is '{}'", productTitle);
         return productTitle;
     }

@@ -3,22 +3,26 @@ package com.solvd.pages.ios;
 import com.solvd.pages.common.SigninPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.decorator.annotations.ClassChain;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = SigninPageBase.class)
 public class SigninPage extends SigninPageBase {
 
-    @FindBy(id = "ap_email_login")
+//    @FindBy(id = "Phone number or email")
+    @FindBy(id = "Email or phone number")
     private ExtendedWebElement userEmailInput;
 
-    @FindBy(xpath = "//span[@class='a-button a-button-span12 a-button-primary']//input[@id='continue']")
+    @FindBy(id = "Continue")
     private ExtendedWebElement continueButton;
 
-    @FindBy(xpath = "//div[@id='auth-warning-message-box']//h4[@class='a-alert-heading']")
+    @FindBy(xpath = "**/XCUIElementTypeStaticText[`label CONTAINS 'account'`]")
+    @ClassChain
     private ExtendedWebElement alertHeading;
 
-    @FindBy(xpath = "//div[@id='auth-warning-message-box']//span[@class='a-list-item']")
+    @FindBy(xpath = "**/XCUIElementTypeStaticText[`label CONTAINS 'check'`]")
+    @ClassChain
     private ExtendedWebElement alertText;
 
     public SigninPage(WebDriver driver) {

@@ -72,14 +72,9 @@ public class ResultPage extends ResultPageBase {
     }
 
     @Override
-    public String getProductLinkForFirstProduct() {
-      ExtendedWebElement e = findExtendedWebElement(By.xpath(".//div[@id='search']/span/div[@class='s-main-slot s-result-list s-search-results sg-row']/div[4]//div[@class='sg-col sg-col-7-of-12 sg-col-7-of-16 sg-col-7-of-20 sg-col-7-of-24 puis-col-expand-last-child']/div/div/span/a"));
+    public ProductPageBase goToFirstProductPage() {
+        ExtendedWebElement e = findExtendedWebElement(By.xpath(".//div[@id='search']/span/div[@class='s-main-slot s-result-list s-search-results sg-row']/div[4]//div[@class='sg-col sg-col-7-of-12 sg-col-7-of-16 sg-col-7-of-20 sg-col-7-of-24 puis-col-expand-last-child']/div/div/span/a"));
         String link = R.CONFIG.get(Configuration.Parameter.URL.getKey()) + e.getAttribute("href");
-        return link;
-    }
-
-    @Override
-    public ProductPageBase openProductPageByLink(String link) {
         getDriver().get(link);
         return initPage(getDriver(), ProductPageBase.class);
     }

@@ -2,13 +2,11 @@ package com.solvd.pages.ios;
 
 import com.solvd.pages.common.ProductPageBase;
 import com.solvd.pages.common.ResultPageBase;
-import com.zebrunner.carina.utils.Configuration;
-import com.zebrunner.carina.utils.R;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.decorator.annotations.ClassChain;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -17,9 +15,10 @@ import java.util.List;
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ResultPageBase.class)
 public class ResultPage extends ResultPageBase {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.pages.desktop.ResultPage.class);
-    private static final String THIS_METHOD_IS_DEFINED_ONLY_FOR_DESKTOP = "This method is not yet implemented for Android";
+    private static final String THIS_METHOD_IS_DEFINED_ONLY_FOR_DESKTOP = "This method is not yet implemented for IOS";
 
-    @FindBy(xpath = ".//div[@class='a-section a-spacing-small a-spacing-top-small puis-padding-right-small']/span/a/div/h2")
+    @FindBy(xpath = "**/XCUIElementTypeLink[`value == '2'`]/XCUIElementTypeStaticText")
+    @ClassChain
     private List<ExtendedWebElement> resultList;
 
     public ResultPage(WebDriver driver) {
@@ -28,7 +27,6 @@ public class ResultPage extends ResultPageBase {
 
     @Override
     public boolean isResultListEmpty() {
-        waitForJSToLoad();
         if (resultList.isEmpty()) {
             LOGGER.warn("Result list is empty");
             return true;
@@ -72,15 +70,8 @@ public class ResultPage extends ResultPageBase {
     }
 
     @Override
-    public String getProductLinkForFirstProduct() {
-        ExtendedWebElement e = findExtendedWebElement(By.xpath(".//div[@id='search']/span/div[@class='s-main-slot s-result-list s-search-results sg-row']/div[4]//div[@class='sg-col sg-col-7-of-12 sg-col-7-of-16 sg-col-7-of-20 sg-col-7-of-24 puis-col-expand-last-child']/div/div/span/a"));
-        String link = R.CONFIG.get(Configuration.Parameter.URL.getKey()) + e.getAttribute("href");
-        return link;
-    }
-
-    @Override
-    public ProductPageBase openProductPageByLink(String link) {
-        getDriver().get(link);
+    public ProductPageBase goToFirstProductPage() {
+        resultList.get(0).click();
         return initPage(getDriver(), ProductPageBase.class);
     }
 }

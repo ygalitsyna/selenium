@@ -6,6 +6,8 @@ import com.solvd.pages.common.SigninPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import com.zebrunner.carina.webdriver.decorator.annotations.ClassChain;
+import com.zebrunner.carina.webdriver.decorator.annotations.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -13,22 +15,25 @@ import org.openqa.selenium.support.FindBy;
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = HomePageBase.class)
 public class HomePage extends HomePageBase implements IMobileUtils {
 
-    @FindBy(id = "nav-logo-sprites")
+    @FindBy(id = "Amazon")
     private ExtendedWebElement amazonLogo;
 
-    @FindBy(xpath = "//input[@name='k']")
+    @FindBy(id = "Search Amazon")
     private ExtendedWebElement searchInput;
 
-    @FindBy(xpath = "//form[@id='nav-search-form']/div[2]/div")
+    @FindBy(id = "Go")
     private ExtendedWebElement searchButton;
 
-    @FindBy(id = "glow-ingress-single-line")
+    @FindBy(xpath = "**/XCUIElementTypeStaticText[`name CONTAINS 'Deliver'`]")
+    @ClassChain
     private ExtendedWebElement autoLocation;
 
-    @FindBy(id = "nav-progressive-greeting")
+    @FindBy(xpath = "name == 'Sign in ›' AND type == 'XCUIElementTypeLink'")
+    @Predicate
     private ExtendedWebElement signinButton;
 
-    @FindBy(xpath = "//span[@id='nav-cart-count']")
+    @FindBy(xpath = "**/XCUIElementTypeStaticText[`label == 'Cart'`]")
+    @ClassChain
     private ExtendedWebElement initProductNumberInCart;
 
     public HomePage(WebDriver driver) {
@@ -50,12 +55,13 @@ public class HomePage extends HomePageBase implements IMobileUtils {
 
     @Override
     public String getAutoLocationText() {
-        return StringUtils.substringAfter(autoLocation.getText(), "to ");
+//        return StringUtils.substringBetween(autoLocation.getText(), "to", "⌵").trim();
+        return StringUtils.substringAfter(autoLocation.getText(), "to ").trim();
     }
 
     @Override
     public String getSearchBarPlaceholder() {
-        return searchInput.getAttribute("placeholder").trim();
+        return searchInput.getText().trim();
     }
 
     @Override
