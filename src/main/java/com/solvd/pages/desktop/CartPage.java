@@ -29,6 +29,13 @@ public class CartPage extends CartPageBase {
     @FindBy(xpath = "//div[@class='sc-item-content-group']//span[@class='a-truncate-cut']")
     private ExtendedWebElement productTitleOnCartPage;
 
+    //@FindBy(xpath = "//div[@class='sc-quantity-decrementer']")
+    @FindBy(xpath = "//input[@value='Delete']")
+    private ExtendedWebElement deleteButton;
+
+    @FindBy(css = "a[href*='delete']")
+    private ExtendedWebElement infoAboutRemovedProduct;
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
