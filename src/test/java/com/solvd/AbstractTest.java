@@ -67,7 +67,7 @@ public class AbstractTest {
 
     private void takeScreenshotIfFailed(WebDriver driver, String methodName) {
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        String screenshotPath = "screenshots/" + methodName + "_" + getBrowserName() + "_" + getCurrentDateTime() + ".png";
+        String screenshotPath = String.format(("screenshots/%s_%s_%s.png"), methodName, getBrowserName(), getCurrentDateTime());
         try {
             FileUtils.copyFile(screenshot, new File(screenshotPath));
             LOGGER.info("Screenshot captured: {}", screenshotPath);
