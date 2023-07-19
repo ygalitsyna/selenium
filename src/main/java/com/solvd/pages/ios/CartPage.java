@@ -1,4 +1,4 @@
-package com.solvd.pages.android;
+package com.solvd.pages.ios;
 
 import com.solvd.pages.common.CartPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
@@ -10,10 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CartPageBase.class)
+@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase {
     private static final Logger LOGGER = LogManager.getLogger(com.solvd.pages.desktop.CartPage.class);
-    private static final String THIS_METHOD_IS_DEFINED_ONLY_FOR_DESKTOP = "This method is not yet implemented for Android";
+    private static final String THIS_METHOD_IS_DEFINED_ONLY_FOR_DESKTOP = "This method is not yet implemented for IOS";
 
     @FindBy(id = "nav-cart-count")
     private ExtendedWebElement currentProductNumberInCart;
@@ -23,13 +23,6 @@ public class CartPage extends CartPageBase {
 
     @FindBy(xpath = "//div[@class='sc-list-item-content']//span[@class='a-truncate-cut']")
     private ExtendedWebElement productTitleOnCartPage;
-
-    //@FindBy(xpath = "//div[@class='sc-quantity-decrementer']")
-    @FindBy(id = "a-autoid-2-announce")
-    private ExtendedWebElement deleteButton;
-
-    @FindBy(css = "a[href*='delete']")
-    private ExtendedWebElement infoAboutRemovedProduct;
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -55,7 +48,7 @@ public class CartPage extends CartPageBase {
     public String getProductTitleText() {
         waitUntil(ExpectedConditions.visibilityOf(productTitleOnCartPage.getElement()), 10);
         String entireProductTitle = productTitleOnCartPage.getText();
-        String productTitle = StringUtils.substring(entireProductTitle, 0, 60);
+        String productTitle = StringUtils.substring(entireProductTitle, 0, 50);
         LOGGER.info("Title on CartPage is '{}'", productTitle);
         return productTitle;
     }

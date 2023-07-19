@@ -76,13 +76,8 @@ public class ResultPage extends ResultPageBase {
     }
 
     @Override
-    public String getProductLinkForFirstProduct() {
-        return resultList.get(1).getAttribute("href");
-    }
-
-    @Override
-    public ProductPageBase openProductPageByLink(String link) {
-        getDriver().get(link);
+    public ProductPageBase goToFirstProductPage() {
+        getDriver().get(resultList.get(1).getAttribute("href"));
         return initPage(getDriver(), ProductPageBase.class);
     }
 }

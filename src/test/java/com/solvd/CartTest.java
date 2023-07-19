@@ -1,6 +1,7 @@
 package com.solvd;
 
 import com.solvd.pages.common.*;
+import com.solvd.utils.MobileContextUtils;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import org.testng.Assert;
@@ -17,7 +18,12 @@ public class CartTest implements IAbstractTest {
         homePage.goToPage();
         Assert.assertTrue(homePage.isInitProductNumberInCartEqualsToZero(), "The number of products in the cart is not equal to 0");
         ResultPageBase resultPage = homePage.search(searchQuery);
-        ProductPageBase productPage = resultPage.openProductPageByLink(resultPage.getProductLinkForFirstProduct());
+        ProductPageBase productPage = resultPage.goToFirstProductPage();
+        if(resultPage.getClass().getName().contains("ios")) {
+            MobileContextUtils contextHelper = new MobileContextUtils();
+            contextHelper.switchMobileContext(MobileContextUtils.View.WEB_BROWSER);
+            initPage(getDriver(), ProductPageBase.class);
+        }
         String productTitleOnProductPage = productPage.getProductTitleText();
         CartPageBase cartPage = productPage.addProductToCartAndGoToCartPage();
         String productTitleOnCartPage = cartPage.getProductTitleText();

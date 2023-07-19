@@ -24,7 +24,5 @@ public abstract class ResultPageBase extends AbstractPage implements IMobileUtil
 
     public abstract boolean isAllResultsMatchCondition(String searchCondition);
 
-    public abstract String getProductLinkForFirstProduct();
-
-    public abstract ProductPageBase openProductPageByLink(String link);
+    public abstract ProductPageBase goToFirstProductPage();
 }
