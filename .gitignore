@@ -42,3 +42,9 @@ build/
 /*.log
 /logs.log
 logs/
+
+### Screnshots###
+screenshots/
+
+### Reports ###
+reports/
