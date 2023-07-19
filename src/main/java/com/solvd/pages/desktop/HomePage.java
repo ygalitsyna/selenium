@@ -1,13 +1,17 @@
-package com.solvd.pages;
+package com.solvd.pages.desktop;
 
+import com.solvd.pages.common.HomePageBase;
+import com.solvd.pages.common.ResultPageBase;
+import com.solvd.pages.common.SigninPageBase;
 import com.zebrunner.carina.utils.Configuration;
 import com.zebrunner.carina.utils.R;
+import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-public class HomePage extends AbstractPage {
+@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = HomePageBase.class)
+public class HomePage extends HomePageBase {
 
     @FindBy(xpath = "//div[@id='nav-belt']//a[@id='nav-logo-sprites']")
     private ExtendedWebElement amazonLogo;
@@ -32,35 +36,36 @@ public class HomePage extends AbstractPage {
         setPageAbsoluteURL(R.CONFIG.get(Configuration.Parameter.URL.getKey()));
     }
 
-    public ResultPage search(String product) {
+    @Override
+    public ResultPageBase search(String product) {
         searchInput.type(product);
         searchButton.click();
-        return new ResultPage(getDriver());
+        return initPage(getDriver(), ResultPageBase.class);
     }
 
-    public HomePage goToPage() {
-        open();
-        return this;
-    }
-
+    @Override
     public boolean isLogoPresent() {
         return amazonLogo.isVisible();
     }
 
+    @Override
     public String getAutoLocationText() {
         return autoLocation.getText();
     }
 
+    @Override
     public String getSearchBarPlaceholder() {
         return searchInput.getAttribute("placeholder").trim();
     }
 
-    public SigninPage goToSigninPage() {
+    @Override
+    public SigninPageBase goToSigninPage() {
         signinButton.click();
-        return new SigninPage(getDriver());
+        return initPage(getDriver(), SigninPageBase.class);
     }
 
+    @Override
     public boolean isInitProductNumberInCartEqualsToZero() {
-        return Integer.parseInt(initProductNumberInCart.getText()) == 0;
+        return Integer.parseInt(initProductNumberInCart.getText().trim()) == 0;
     }
 }

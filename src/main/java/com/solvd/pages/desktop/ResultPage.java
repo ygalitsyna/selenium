@@ -1,7 +1,9 @@
-package com.solvd.pages;
+package com.solvd.pages.desktop;
 
+import com.solvd.pages.common.ProductPageBase;
+import com.solvd.pages.common.ResultPageBase;
+import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +11,8 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class ResultPage extends AbstractPage {
+@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = ResultPageBase.class)
+public class ResultPage extends ResultPageBase {
     private static final Logger LOGGER = LogManager.getLogger(ResultPage.class);
 
     @FindBy(xpath = ".//div[@class='a-section']//h2//a")
@@ -22,6 +25,7 @@ public class ResultPage extends AbstractPage {
         super(driver);
     }
 
+    @Override
     public boolean isResultListEmpty() {
         if (resultList.isEmpty()) {
             LOGGER.warn("Result list is empty");
@@ -31,12 +35,14 @@ public class ResultPage extends AbstractPage {
         return false;
     }
 
+    @Override
     public void printElementsInConsole() {
         for (ExtendedWebElement element : resultList) {
             System.out.println(element.getText());
         }
     }
 
+    @Override
     public int getExpectedNumberOfResultsOnPage(ExtendedWebElement resultsNumberOnPage) {
         String expectedNumberInString = resultsNumberOnPage.getText();
         String[] array = (expectedNumberInString.split("-"))[1].split(" ");
@@ -45,31 +51,38 @@ public class ResultPage extends AbstractPage {
         return expectedNumber;
     }
 
+    @Override
     public int getActualNumberOfResultsOnPage(List<ExtendedWebElement> resultList) {
         int actualNumber = resultList.size();
         LOGGER.info("Actual number of results in resultlist is {}", actualNumber);
         return actualNumber;
     }
 
+    @Override
     public boolean isResultsNumberOnPageCorrect() {
         return (getExpectedNumberOfResultsOnPage(resultsNumberOnPage) == getActualNumberOfResultsOnPage(resultList));
     }
 
+    @Override
     public boolean isAllResultsMatchCondition(String searchCondition) {
+        boolean isMatch = true;
         for (ExtendedWebElement element : resultList) {
             if (!element.getText().toLowerCase().contains(searchCondition.toLowerCase())) {
-                return false;
+                isMatch = false;
+                return isMatch;
             }
         }
-        return true;
+        return isMatch;
     }
 
-    public String getProductLinkForSecondProduct() {
+    @Override
+    public String getProductLinkForFirstProduct() {
         return resultList.get(1).getAttribute("href");
     }
 
-    public ProductPage openProductPageByLink(String link) {
+    @Override
+    public ProductPageBase openProductPageByLink(String link) {
         getDriver().get(link);
-        return new ProductPage(getDriver());
+        return initPage(getDriver(), ProductPageBase.class);
     }
 }

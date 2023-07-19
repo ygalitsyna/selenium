@@ -1,7 +1,7 @@
 package com.solvd;
 
-import com.solvd.pages.HomePage;
-import com.solvd.pages.ResultPage;
+import com.solvd.pages.common.HomePageBase;
+import com.solvd.pages.common.ResultPageBase;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import org.testng.Assert;
@@ -13,7 +13,7 @@ public class SearchTest implements IAbstractTest {
     @Test
     @MethodOwner(owner = "ygalitsyna")
     public void testSearchBarText() {
-        HomePage homePage = new HomePage(getDriver());
+        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.goToPage();
         Assert.assertTrue(homePage.getSearchBarPlaceholder().equals("Search Amazon"), "Search bar placeholder is not correct");
     }
@@ -22,10 +22,12 @@ public class SearchTest implements IAbstractTest {
     @Parameters("search_query")
     @MethodOwner(owner = "ygalitsyna")
     public void testSearch(String searchQuery) {
-        HomePage homePage = new HomePage(getDriver());
-        ResultPage resultPage = homePage.goToPage().search(searchQuery);
+        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
+        ResultPageBase resultPage = homePage.goToPage().search(searchQuery);
         Assert.assertFalse(resultPage.isResultListEmpty(), "List of results is empty");
-        Assert.assertTrue(resultPage.isResultsNumberOnPageCorrect(), "Expected number of results per page does not match the actual number");
+        if(resultPage.getClass().getName().contains("desktop")) {
+            Assert.assertTrue(resultPage.isResultsNumberOnPageCorrect(), "Expected number of results per page does not match the actual number");
+        }
         Assert.assertTrue(resultPage.isAllResultsMatchCondition(searchQuery), "There are search results that don't match your search query");
     }
 }
