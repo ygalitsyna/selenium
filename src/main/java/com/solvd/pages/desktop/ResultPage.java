@@ -1,50 +1,49 @@
-package com.solvd.pages;
+package com.solvd.pages.desktop;
 
+import com.solvd.pages.common.ProductPageBase;
+import com.solvd.pages.common.ResultPageBase;
+import com.zebrunner.carina.utils.factory.DeviceType;
+import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
-public class ResultPage extends AbstractPage {
+@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = ResultPageBase.class)
+public class ResultPage extends ResultPageBase {
     private static final Logger LOGGER = LogManager.getLogger(ResultPage.class);
 
     @FindBy(xpath = ".//div[@class='a-section']//h2//a")
-    private List<WebElement> resultList;
+    private List<ExtendedWebElement> resultList;
 
     @FindBy(xpath = "//span[contains(text(),'results for')]")
-    private WebElement resultsNumberOnPage;
+    private ExtendedWebElement resultsNumberOnPage;
 
     public ResultPage(WebDriver driver) {
         super(driver);
     }
 
-    public List<WebElement> getResultList() {
-        return resultList;
-    }
-
+    @Override
     public boolean isResultListEmpty() {
-        WebDriverWait wait = new WebDriverWait(this.getDriver(), Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.visibilityOfAllElements(resultList));
         if (resultList.isEmpty()) {
+            LOGGER.warn("Result list is empty");
             return true;
         }
         printElementsInConsole();
         return false;
     }
 
+    @Override
     public void printElementsInConsole() {
-        for (WebElement element : resultList) {
+        for (ExtendedWebElement element : resultList) {
             System.out.println(element.getText());
         }
     }
 
-    public int getExpectedNumberOfResultsOnPage(WebElement resultsNumberOnPage) {
+    @Override
+    public int getExpectedNumberOfResultsOnPage(ExtendedWebElement resultsNumberOnPage) {
         String expectedNumberInString = resultsNumberOnPage.getText();
         String[] array = (expectedNumberInString.split("-"))[1].split(" ");
         int expectedNumber = Integer.parseInt(array[0]);
@@ -52,36 +51,38 @@ public class ResultPage extends AbstractPage {
         return expectedNumber;
     }
 
-    public int getActualNumberOfResultsOnPage(List<WebElement> resultList) {
+    @Override
+    public int getActualNumberOfResultsOnPage(List<ExtendedWebElement> resultList) {
         int actualNumber = resultList.size();
         LOGGER.info("Actual number of results in resultlist is {}", actualNumber);
         return actualNumber;
     }
 
+    @Override
     public boolean isResultsNumberOnPageCorrect() {
-        if (getExpectedNumberOfResultsOnPage(resultsNumberOnPage) == getActualNumberOfResultsOnPage(resultList)) {
-            return true;
-        }
-        return false;
+        return (getExpectedNumberOfResultsOnPage(resultsNumberOnPage) == getActualNumberOfResultsOnPage(resultList));
     }
 
+    @Override
     public boolean isAllResultsMatchCondition(String searchCondition) {
-        for (WebElement element : resultList) {
+        boolean isMatch = true;
+        for (ExtendedWebElement element : resultList) {
             if (!element.getText().toLowerCase().contains(searchCondition.toLowerCase())) {
-                return false;
+                isMatch = false;
+                return isMatch;
             }
         }
-        return true;
+        return isMatch;
     }
 
+    @Override
     public String getProductLinkForFirstProduct() {
-        WebDriverWait wait = new WebDriverWait(this.getDriver(), Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.visibilityOfAllElements(resultList));
-        return resultList.get(0).getAttribute("href");
+        return resultList.get(1).getAttribute("href");
     }
 
-    public ProductPage openProductPageByLink(String link) {
+    @Override
+    public ProductPageBase openProductPageByLink(String link) {
         getDriver().get(link);
-        return new ProductPage(getDriver());
+        return initPage(getDriver(), ProductPageBase.class);
     }
 }
