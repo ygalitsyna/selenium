@@ -18,6 +18,7 @@ public class SearchTest implements IAbstractTest {
         Assert.assertTrue(homePage.getSearchBarPlaceholder().equals("Search Amazon"), "Search bar placeholder is not correct");
     }
 
+    
     @Test
     @Parameters("search_query")
     @MethodOwner(owner = "ygalitsyna")
