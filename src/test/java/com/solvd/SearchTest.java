@@ -2,6 +2,7 @@ package com.solvd;
 
 import com.solvd.pages.common.HomePageBase;
 import com.solvd.pages.common.ResultPageBase;
+import com.zebrunner.agent.core.annotation.TestRailCaseId;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import org.testng.Assert;
@@ -11,6 +12,7 @@ import org.testng.annotations.Test;
 public class SearchTest implements IAbstractTest {
 
     @Test
+    @TestRailCaseId("C3597")
     @MethodOwner(owner = "ygalitsyna")
     public void testSearchBarText() {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
@@ -20,6 +22,7 @@ public class SearchTest implements IAbstractTest {
 
     
     @Test
+    @TestRailCaseId("C3598")
     @Parameters("search_query")
     @MethodOwner(owner = "ygalitsyna")
     public void testSearch(String searchQuery) {
