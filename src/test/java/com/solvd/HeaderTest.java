@@ -12,12 +12,13 @@ import org.testng.annotations.Test;
 public class HeaderTest implements IAbstractTest {
     @BeforeSuite
     public void setUp() {
-        TestRail.setSuiteId("S196");
+        TestRail.setSuiteId("197");
         TestRail.setRunName("First run");
+        TestRail.includeAllTestCasesInNewRun();
     }
 
     @Test
-    @TestRailCaseId("C3595")
+    @TestRailCaseId("3600")
     @MethodOwner(owner = "ygalitsyna")
     public void testLogo() {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
@@ -26,7 +27,7 @@ public class HeaderTest implements IAbstractTest {
     }
 
     @Test
-    @TestRailCaseId("C3596")
+    @TestRailCaseId("3601")
     @MethodOwner(owner = "ygalitsyna")
     public void testLocation() {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);

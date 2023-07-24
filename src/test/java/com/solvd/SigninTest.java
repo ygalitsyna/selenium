@@ -6,13 +6,13 @@ import com.zebrunner.agent.core.annotation.TestRailCaseId;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import org.testng.Assert;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class SigninTest implements IAbstractTest {
 
     @Test
-    @TestRailCaseId("C3599")
     @Parameters("unsuccessful_signin")
     @MethodOwner(owner = "ygalitsyna")
     public void testUnsuccessfulSignin(String userEmail) {

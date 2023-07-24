@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class SearchTest implements IAbstractTest {
 
     @Test
-    @TestRailCaseId("C3597")
+    @TestRailCaseId("3602")
     @MethodOwner(owner = "ygalitsyna")
     public void testSearchBarText() {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
@@ -22,7 +22,7 @@ public class SearchTest implements IAbstractTest {
 
     
     @Test
-    @TestRailCaseId("C3598")
+    @TestRailCaseId("3603")
     @Parameters("search_query")
     @MethodOwner(owner = "ygalitsyna")
     public void testSearch(String searchQuery) {
