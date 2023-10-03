@@ -64,7 +64,7 @@ public class CartPage extends CartPageBase {
         waitUntil(ExpectedConditions.visibilityOf(productTitleOnCartPage.getElement()), 10);
         String entireProductTitle = productTitleOnCartPage.getText();
         String productTitle = StringUtils.substring(entireProductTitle, 0, 60);
-        LOGGER.info("Title on CartPage is '{}'", productTitle);
+        LOGGER.info("Title on CartPage is '{}' ", productTitle);
         return productTitle;
     }
 }
